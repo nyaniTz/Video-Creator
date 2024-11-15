@@ -58,35 +58,36 @@
      }
 
      #draggable-resizable-box {
+        grid-column: -1/-4;
+            grid-row: -4/-1;
+            width: 99.8%;
+            height: 99.8%;
+            background-color: #fdeca6;
+            border: 2px solid transparent;
+            cursor: move;
+            position: relative;
+            background-color: #fdeca6;
+           
+            cursor: move;
+        }
         
-                grid-column: -1/-4;
-                grid-row: -4/-1;
-                width:99.8%;
-                height: 99.8%;
-                background-color: #fdeca6;
-                border: 2px solid transparent;
-               
-                cursor: move;
-                
-            }
+        /* Resizable handles using data attributes */
+        #draggable-resizable-box [data-resize] {
+            background-color: #0e4e46;
+            position: absolute;
+            width:5px;
+            height: 5px;
+        }
 
-            /* Resizable handles */
-            #draggable-resizable-box  .resize-handle {
-                
-               
-                background-color: #0e4e46;
-            
-            }
-
-             /* Positioning the resize handles at the corners */
-           .resize-handle.nw { top: -4px; left: -4px; cursor: nw-resize; }
-            .resize-handle.ne { top: -4px; right: -4px; cursor: ne-resize; }
-            .resize-handle.sw { bottom: -4px; left: -4px; cursor: sw-resize; }
-            .resize-handle.se { bottom: -4px; right: -4px; cursor: se-resize; }
-            .resize-handle.n { top: -4px; left: 50%; transform: translateX(-50%); cursor: n-resize; }
-            .resize-handle.s { bottom: -4px; left: 50%; transform: translateX(-50%); cursor: s-resize; }
-            .resize-handle.e { right: -4px; top: 50%; transform: translateY(-50%); cursor: e-resize; }
-            .resize-handle.w { left: -4px; top: 50%; transform: translateY(-50%); cursor: w-resize; }
+        /* Positioning the resize handles at the corners and edges */
+        [data-resize="nw"] { top: -4px; left: -4px; cursor: nw-resize; }
+        [data-resize="ne"] { top: -4px; right: -4px; cursor: ne-resize; }
+        [data-resize="sw"] { bottom: -4px; left: -4px; cursor: sw-resize; }
+        [data-resize="se"] { bottom: -4px; right: -4px; cursor: se-resize; }
+        [data-resize="n"] { top: -4px; left: 50%; transform: translateX(-50%); cursor: n-resize; }
+        [data-resize="s"] { bottom: -4px; left: 50%; transform: translateX(-50%); cursor: s-resize; }
+        [data-resize="e"] { right: -4px; top: 50%; transform: translateY(-50%); cursor: e-resize; }
+        [data-resize="w"] { left: -4px; top: 50%; transform: translateY(-50%); cursor: w-resize; }
 
             #talk-box {
                 position: absolute;
@@ -258,15 +259,14 @@
 
 
             <div id="draggable-resizable-box">
-                <!-- Resizing handles -->
-                <div id="text-boxResize" class="resize-handle nw"></div>
-                <div class="resize-handle ne"></div>
-                <div class="resize-handle sw"></div>
-                <div class="resize-handle se"></div>
-                <div class="resize-handle n"></div>
-                <div class="resize-handle s"></div>
-                <div class="resize-handle e"></div>
-                <div class="resize-handle w"></div>
+                <div data-resize="nw"></div>
+                <div data-resize="ne"></div>
+                <div data-resize="sw"></div>
+                <div data-resize="se"></div>
+                <div data-resize="n"></div>
+                <div data-resize="s"></div>
+                <div data-resize="e"></div>
+                <div data-resize="w"></div>
             </div>
 
 
@@ -286,145 +286,101 @@
         <script src="https://code.responsivevoice.org/responsivevoice.js?key=NVbGYm7d"></script>
 
         <script>
-            let x = 0;
-            function speakAndChangeImage() {
-                let text = document.getElementById('talk').value;
-                responsiveVoice.speak(text, null, {
-                    onstart: function() {
-                        document.getElementById("dux").src = 'DuxTalk.gif';
-                        x = 2;
-                    },
-                    onend: function() {
-                        document.getElementById("dux").src = 'DuxSilent.jpg';
-                        x = 0;
+            const box = document.getElementById('draggable-resizable-box');
+            let currentHandle, isResizing = false, isDragging = false;
+            let startX, startY, startWidth, startHeight, startTop, startLeft;
+    
+            // Function to handle mousemove event
+            const onMouseMove = (e) => {
+                const dx = e.clientX - startX;
+                const dy = e.clientY - startY;
+    
+                if (isResizing) {
+                    switch (currentHandle) {
+                        case 'nw':
+                            box.style.width = `${startWidth - dx}px`;
+                            box.style.height = `${startHeight - dy}px`;
+                            box.style.top = `${startTop + dy}px`;
+                            box.style.left = `${startLeft + dx}px`;
+                            break;
+                        case 'ne':
+                            box.style.width = `${startWidth + dx}px`;
+                            box.style.height = `${startHeight - dy}px`;
+                            box.style.top = `${startTop + dy}px`;
+                            break;
+                        case 'sw':
+                            box.style.width = `${startWidth - dx}px`;
+                            box.style.height = `${startHeight + dy}px`;
+                            box.style.left = `${startLeft + dx}px`;
+                            break;
+                        case 'se':
+                            box.style.width = `${startWidth + dx}px`;
+                            box.style.height = `${startHeight + dy}px`;
+                            break;
+                        case 'n':
+                            box.style.height = `${startHeight - dy}px`;
+                            box.style.top = `${startTop + dy}px`;
+                            break;
+                        case 's':
+                            box.style.height = `${startHeight + dy}px`;
+                            break;
+                        case 'e':
+                            box.style.width = `${startWidth + dx}px`;
+                            break;
+                        case 'w':
+                            box.style.width = `${startWidth - dx}px`;
+                            box.style.left = `${startLeft + dx}px`;
+                            break;
                     }
-                });
-            }
-
-            // Make the talk box draggable
-            dragElement(document.getElementById("talk-box"));
-
-            // Make the Dux image draggable
-            dragElement(document.getElementById("dux"));
-
-            // Make the new box draggable and resizable
-            makeResizable(document.getElementById("draggable-resizable-box"));
-
-            function dragElement(elmnt) {
-                var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-                var isResizing = false;
-
-                if (document.getElementById(elmnt.id + "-header")) {
-                    document.getElementById(elmnt.id + "-header").onmousedown = dragMouseDown;
-                } else {
-                    elmnt.onmousedown = dragMouseDown;
+                } else if (isDragging) {
+                    box.style.top = `${startTop + dy}px`;
+                    box.style.left = `${startLeft + dx}px`;
                 }
-
-                function dragMouseDown(e) {
-                    if (isResizing) return;  // Don't drag when resizing
-                    e = e || window.event;
-                    e.preventDefault();
-                    pos3 = e.clientX;
-                    pos4 = e.clientY;
-                    document.onmouseup = closeDragElement;
-                    document.onmousemove = elementDrag;
-                }
-
-                function elementDrag(e) {
-                    e = e || window.event;
-                    e.preventDefault();
-                    pos1 = pos3 - e.clientX;
-                    pos2 = pos4 - e.clientY;
-                    pos3 = e.clientX;
-                    pos4 = e.clientY;
-                    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-                    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-                }
-
-                function closeDragElement() {
-                    document.onmouseup = null;
-                    document.onmousemove = null;
-                }
-
-                function setIsResizing(value) {
-                    isResizing = value;
-                }
-
-                return {
-                    setIsResizing: setIsResizing
-                };
-            }
-
-            function makeResizable(elmnt) {
-                const handles = elmnt.querySelectorAll(".resize-handle");
-                let dragObj = dragElement(elmnt);
-
-                handles.forEach(function(handle) {
-                    handle.addEventListener("mousedown", function(e) {
-                        dragObj.setIsResizing(true);  // Disable dragging while resizing
-
-                        e.preventDefault();
-                        const rect = elmnt.getBoundingClientRect();
-                        const initialX = e.clientX;
-                        const initialY = e.clientY;
-                        const initialWidth = rect.width;
-                        const initialHeight = rect.height;
-                        const initialTop = rect.top;
-                        const initialLeft = rect.left;
-
-                        document.onmousemove = function(e) {
-                            let newWidth, newHeight;
-
-                            // Logic for each handle type
-                            if (handle.classList.contains("nw")) {
-                                newWidth = initialWidth - (e.clientX - initialX);
-                                newHeight = initialHeight - (e.clientY - initialY);
-                                elmnt.style.width = newWidth + "px";
-                                elmnt.style.height = newHeight + "px";
-                                elmnt.style.top = initialTop + (e.clientY - initialY) + "px";
-                                elmnt.style.left = initialLeft + (e.clientX - initialX) + "px";
-                            } else if (handle.classList.contains("ne")) {
-                                newWidth = initialWidth + (e.clientX - initialX);
-                                newHeight = initialHeight - (e.clientY - initialY);
-                                elmnt.style.width = newWidth + "px";
-                                elmnt.style.height = newHeight + "px";
-                                elmnt.style.top = initialTop + (e.clientY - initialY) + "px";
-                            } else if (handle.classList.contains("sw")) {
-                                newWidth = initialWidth - (e.clientX - initialX);
-                                newHeight = initialHeight + (e.clientY - initialY);
-                                elmnt.style.width = newWidth + "px";
-                                elmnt.style.height = newHeight + "px";
-                                elmnt.style.left = initialLeft + (e.clientX - initialX) + "px";
-                            } else if (handle.classList.contains("se")) {
-                                newWidth = initialWidth + (e.clientX - initialX);
-                                newHeight = initialHeight + (e.clientY - initialY);
-                                elmnt.style.width = newWidth + "px";
-                                elmnt.style.height = newHeight + "px";
-                            } else if (handle.classList.contains("n")) {
-                                newHeight = initialHeight - (e.clientY - initialY);
-                                elmnt.style.height = newHeight + "px";
-                                elmnt.style.top = initialTop + (e.clientY - initialY) + "px";
-                            } else if (handle.classList.contains("s")) {
-                                newHeight = initialHeight + (e.clientY - initialY);
-                                elmnt.style.height = newHeight + "px";
-                            } else if (handle.classList.contains("e")) {
-                                newWidth = initialWidth + (e.clientX - initialX);
-                                elmnt.style.width = newWidth + "px";
-                            } else if (handle.classList.contains("w")) {
-                                newWidth = initialWidth - (e.clientX - initialX);
-                                elmnt.style.width = newWidth + "px";
-                                elmnt.style.left = initialLeft + (e.clientX - initialX) + "px";
-                            }
-                        };
-
-                        document.onmouseup = function() {
-                            document.onmousemove = null;
-                            document.onmouseup = null;
-                            dragObj.setIsResizing(false);  // Re-enable dragging after resizing
-                        };
-                    });
-                });
-            }
+            };
+    
+            // Function to handle mouseup event
+            const onMouseUp = () => {
+                isResizing = false;
+                isDragging = false;
+                window.removeEventListener('mousemove', onMouseMove);
+                window.removeEventListener('mouseup', onMouseUp);
+            };
+    
+            // Function to handle mousedown event for resizing
+            const onMouseDownResize = (e) => {
+                currentHandle = e.target.getAttribute('data-resize');
+                isResizing = true;
+                startX = e.clientX;
+                startY = e.clientY;
+                startWidth = box.offsetWidth;
+                startHeight = box.offsetHeight;
+                startTop = box.offsetTop;
+                startLeft = box.offsetLeft;
+    
+                window.addEventListener('mousemove', onMouseMove);
+                window.addEventListener('mouseup', onMouseUp);
+            };
+    
+            // Function to handle mousedown event for dragging
+            const onMouseDownDrag = (e) => {
+                if (e.target.hasAttribute('data-resize')) return; // Ignore resizing handles
+                isDragging = true;
+                startX = e.clientX;
+                startY = e.clientY;
+                startTop = box.offsetTop;
+                startLeft = box.offsetLeft;
+    
+                window.addEventListener('mousemove', onMouseMove);
+                window.addEventListener('mouseup', onMouseUp);
+            };
+    
+            // Add event listeners for resizing handles
+            document.querySelectorAll('#draggable-resizable-box [data-resize]').forEach(handle => {
+                handle.addEventListener('mousedown', onMouseDownResize);
+            });
+    
+            // Add event listener for dragging
+            box.addEventListener('mousedown', onMouseDownDrag);
         </script>
 
 <script>
