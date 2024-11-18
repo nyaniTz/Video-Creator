@@ -107,7 +107,9 @@
 
         #draggable-resizable-box:hover {
             cursor: all-scroll;
-            /* padding: 20px; */
+
+            padding: 1px;
+            border: 1px solid #081b2d;
 
         }
 
@@ -117,6 +119,7 @@
             top: -4px;
             left: -4px;
             cursor: nw-resize;
+            margin: 4;
         }
 
         [data-resize="ne"] {
@@ -391,137 +394,134 @@
 
     <!-- <script src="https://code.responsivevoice.org/responsivevoice.js?key=NVbGYm7d"></script> -->
 
-
-
     <script>
-        const box = document.getElementById('draggable-resizable-box');
-        let currentHandle, isResizing1 = false, isDragging1 = false;
-        let startX, startY, startWidth, startHeight, startTop, startLeft;
 
-        const makeDraggableAndResizable = (element) => {
-            let isResizing1 = false, isDragging1 = false;
-            let currentHandle;
+    const box = document.getElementById('draggable-resizable-box');
+    let currentHandle, isResizing1 = false, isDragging1 = false;
+    let startX, startY, startWidth, startHeight, startTop, startLeft;
+    
+    const makeDraggableAndResizable = (element) => {
+        let isResizing1 = false, isDragging1 = false;
+        let currentHandle;
+    
+        const onMouseMove = (e) => {
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+    
+            if (isResizing1) {
+                switch (currentHandle) {
+                    case 'nw':
+                        element.style.width = `${startWidth - dx}px`;
+                        element.style.height = `${startHeight - dy}px`;
+                       
 
-            const onMouseMove = (e) => {
-                const dx = e.clientX - startX;
-                const dy = e.clientY - startY;
+                    
 
-                if (isResizing1) {
-                    switch (currentHandle) {
-                        case 'nw':
-                            element.style.width = `${startWidth - dx}px`;
-                            element.style.height = `${startHeight - dy}px`;
-                            break;
-                        case 'ne':
-                            element.style.width = `${startWidth + dx}px`;
-                            element.style.height = `${startHeight - dy}px`;
-                            break;
-                        case 'sw':
-                            element.style.width = `${startWidth - dx}px`;
-                            element.style.height = `${startHeight + dy}px`;
-                            break;
-                        case 'se':
-                            element.style.width = `${startWidth + dx}px`;
-                            element.style.height = `${startHeight + dy}px`;
-                            break;
-                        case 'n':
-                            element.style.height = `${startHeight - dy}px`;
-                            element.style.top = `${startTop + dy}px`;
-                            break;
-                        case 's':
-                            element.style.height = `${startHeight + dy}px`;
-                            break;
-                        case 'e':
-                            element.style.width = `${startWidth + dx}px`;
-                            break;
-                        case 'w':
-                            element.style.left = `${startLeft + dx}px`;
-                            break;
-                    }
-                } else if (isDragging1) {
-                    element.style.top = `${startTop + dy}px`;
+                        element.style.left = `${startLeft +dx}px`;
+
+                        break;
+                    case 'ne':
+                        element.style.width = `${startWidth + dx}px`;
+                        element.style.height = `${startHeight - dy}px`;
+                        break;
+                    case 'sw':
+                        element.style.width = `${startWidth - dx}px`;
+                        element.style.height = `${startHeight + dy}px`;
+
+                        element.style.left = `${startLeft + dx}px`;
+                        break;
+                    case 'se':
+                        element.style.width = `${startWidth + dx}px`;
+                        element.style.height = `${startHeight + dy}px`;
+
+                        break;
+                    case 'n':
+                        element.style.height = `${startHeight - dy}px`;
+                        element.style.top = `${startTop + dy}px`;
+                        break;
+                    case 's':
+                        element.style.height = `${startHeight + dy}px`;
+                        break;
+                    case 'e':
+                        element.style.width = `${startWidth + dx}px`;
+                        break;
+                    case 'w':
+                    element.style.width = `${startWidth + dx}px`;
+                    element.style.height = `${startHeight + dy}px`;
                     element.style.left = `${startLeft + dx}px`;
+                        break;
                 }
-            };
-
-            const onMouseUp = () => {
-                isResizing1 = false;
-                isDragging1 = false;
-                window.removeEventListener('mousemove', onMouseMove);
-                window.removeEventListener('mouseup', onMouseUp);
-            };
-
-            const onMouseDownResize = (e) => {
-                currentHandle = e.target.getAttribute('data-resize');
+            } else if (isDragging1) {
+                element.style.top = `${startTop + dy}px`;
+                element.style.left = `${startLeft + dx}px`;
+            }
+        };
+    
+        const onMouseUp = () => {
+            isResizing1 = false;
+            isDragging1 = false;
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+        };
+    
+        const onMouseDown = (e) => {
+            if (e.target.dataset.resize) {
                 isResizing1 = true;
+                currentHandle = e.target.dataset.resize;
                 startX = e.clientX;
                 startY = e.clientY;
-                startWidth = element.offsetWidth;
-                startHeight = element.offsetHeight;
-                startTop = element.offsetTop;
-                startLeft = element.offsetLeft;
-
-                window.addEventListener('mousemove', onMouseMove);
-                window.addEventListener('mouseup', onMouseUp);
-            };
-
-            const onMouseDownDrag = (e) => {
-                if (e.target.hasAttribute('data-resize')) return; // Ignore resizing handles
+                startWidth = parseFloat(getComputedStyle(element).width);
+                startHeight = parseFloat(getComputedStyle(element).height);
+                startTop = parseFloat(getComputedStyle(element).top);
+                startLeft = parseFloat(getComputedStyle(element).left);
+                document.addEventListener('mousemove', onMouseMove);
+                document.addEventListener('mouseup', onMouseUp);
+            } else {
                 isDragging1 = true;
                 startX = e.clientX;
                 startY = e.clientY;
-                startTop = element.offsetTop;
-                startLeft = element.offsetLeft;
-
-                window.addEventListener('mousemove', onMouseMove);
-                window.addEventListener('mouseup', onMouseUp);
-            };
-
-            // Add event listeners for resizing handles
-            element.querySelectorAll('[data-resize]').forEach(handle => {
-                handle.addEventListener('mousedown', onMouseDownResize);
-            });
-
-            // Add event listener for dragging
-            element.addEventListener('mousedown', onMouseDownDrag);
+                startTop = parseFloat(getComputedStyle(element).top);
+                startLeft = parseFloat(getComputedStyle(element).left);
+                document.addEventListener('mousemove', onMouseMove);
+                document.addEventListener('mouseup', onMouseUp);
+            }
         };
-
-        // Initialize the original box
-        makeDraggableAndResizable(box);
-
-        // Function to duplicate the box
-        const duplicateBox = () => {
-            let dataresize = document.getElementsByClassName("dataresize");
-
-            // Ensure there's at least one element with the class "dataresize"
-            if (dataresize.length > 0) {
-                // Get the computed opacity of the first element
-                let opacity = window.getComputedStyle(dataresize[0]).opacity;
-
-                if (opacity == "1") {
-                    const newBox = box.cloneNode(true);
-                    newBox.style.position = 'absolute'; // Ensure the new box is absolutely positioned
-                    newBox.style.top = `${Math.random() * 400}px`; // Random position for demonstration
-                    newBox.style.left = `${Math.random() * 400}px`; // Random position for demonstration
-                    newBox.style.zIndex = '10'; // Ensure it has a higher z-index
-                    document.getElementById('background').appendChild(newBox); // Append to the background
-                    makeDraggableAndResizable(newBox); // Reapply functionality to the new box
-                } else {
-                    console.log("Opacity is not 1");
-                }
+    
+        element.addEventListener('mousedown', onMouseDown);
+    };
+    
+    // Function to duplicate the box
+    const duplicateBox = () => {
+            const boxOpacity = getComputedStyle(box).opacity;
+            if (boxOpacity === "1") {
+                const newBox = box.cloneNode(true);
+                newBox.style.position = 'absolute';
+                newBox.style.top = `${Math.random() * 400}px`;
+                newBox.style.left = `${Math.random() * 400}px`;
+                newBox.style.zIndex = '10';
+                document.getElementById('background').appendChild(newBox);
+                makeDraggableAndResizable(newBox);
             } else {
-                console.log("No elements with the class 'dataresize' found");
+                console.log("Box opacity is not 1, duplication not allowed.");
             }
         };
 
-        // Event listener for keydown to duplicate the box
-        document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.key === 'd') {
-                e.preventDefault(); // Prevent default action
-                duplicateBox();
-            }
-        });
+        // Initialize the draggable and resizable functionality
+       
+    
+    // Add a keydown event listener for detecting Ctrl + D
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.key === 'd') {
+            e.preventDefault(); // Prevent default action
+            duplicateBox();
+        }
+    });
+    
+    // Initialize the draggable and resizable functionality
+    makeDraggableAndResizable(box);
     </script>
+    
+    
 
 
     <script>
