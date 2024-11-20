@@ -73,8 +73,7 @@
 
 
         #draggable-resizable-box {
-            grid-column: -1/-4;
-            grid-row: -4/-1;
+          
             position: absolute;
             top: 50px;
             left: 50px;
@@ -221,6 +220,8 @@
         #text-box:hover {
             cursor: all-scroll;
             padding: 20px;
+            /* border: 1px solid #081b2d; */
+
         }
 
         #text-box .resize-handle {
@@ -314,6 +315,15 @@
             height: 100%;
 
         }
+        #image-content:hover {
+            /* display: grid;
+            grid-column: -5/-3;
+            width: 200%; /* Set smaller default width */
+            /* Set smaller default height */
+            border: 1px solid #081b2d;
+          
+
+        }
 
         #image-box {}
 
@@ -394,104 +404,125 @@
 
     <!-- <script src="https://code.responsivevoice.org/responsivevoice.js?key=NVbGYm7d"></script> -->
 
+
+   
     <script>
-
-    const box = document.getElementById('draggable-resizable-box');
-    let currentHandle, isResizing1 = false, isDragging1 = false;
-    let startX, startY, startWidth, startHeight, startTop, startLeft;
+        const box = document.getElementById('draggable-resizable-box');
+        const background = document.getElementById('background');
+        let currentHandle, isResizing1 = false, isDragging1 = false;
+        let startX, startY, startWidth, startHeight, startTop, startLeft;
     
-    const makeDraggableAndResizable = (element) => {
-        let isResizing1 = false, isDragging1 = false;
-        let currentHandle;
+        const makeDraggableAndResizable = (element) => {
+            let isResizing1 = false, isDragging1 = false;
+            let currentHandle;
     
-        const onMouseMove = (e) => {
-            const dx = e.clientX - startX;
-            const dy = e.clientY - startY;
+            const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
     
-            if (isResizing1) {
-                switch (currentHandle) {
-                    case 'nw':
-                        element.style.width = `${startWidth - dx}px`;
-                        element.style.height = `${startHeight - dy}px`;
-                       
-
-                    
-
-                        element.style.left = `${startLeft +dx}px`;
-
-                        break;
-                    case 'ne':
-                        element.style.width = `${startWidth + dx}px`;
-                        element.style.height = `${startHeight - dy}px`;
-                        break;
-                    case 'sw':
-                        element.style.width = `${startWidth - dx}px`;
-                        element.style.height = `${startHeight + dy}px`;
-
-                        element.style.left = `${startLeft + dx}px`;
-                        break;
-                    case 'se':
-                        element.style.width = `${startWidth + dx}px`;
-                        element.style.height = `${startHeight + dy}px`;
-
-                        break;
-                    case 'n':
-                        element.style.height = `${startHeight - dy}px`;
-                        element.style.top = `${startTop + dy}px`;
-                        break;
-                    case 's':
-                        element.style.height = `${startHeight + dy}px`;
-                        break;
-                    case 'e':
-                        element.style.width = `${startWidth + dx}px`;
-                        break;
-                    case 'w':
-                    element.style.width = `${startWidth + dx}px`;
-                    element.style.height = `${startHeight + dy}px`;
-                    element.style.left = `${startLeft + dx}px`;
-                        break;
+            const onMouseMove = (e) => {
+                const dx = e.clientX - startX;
+                const dy = e.clientY - startY;
+    
+                const parentRect = background.getBoundingClientRect();
+                const boxRect = element.getBoundingClientRect();
+    
+                if (isDragging1) {
+                    // Calculate new top and left positions
+                    let newTop = startTop + dy;
+                    let newLeft = startLeft + dx;
+    
+                    // Clamp the position to stay within the parent container
+                    newTop = clamp(newTop, 0, parentRect.height - boxRect.height);
+                    console.log("this one: ",boxRect.x)
+                    newLeft = clamp(newLeft, 0, parentRect.width - boxRect.width);
+    
+                    // Apply the clamped positions
+                    element.style.top = `${newTop}px`;
+                    element.style.left = `${newLeft}px`;
+                } else if (isResizing1) {
+                    // Handle resizing with boundary restrictions
+                    switch (currentHandle) {
+                        case 'nw':
+                            const newWidthNW = startWidth - dx;
+                            const newHeightNW = startHeight - dy;
+                            const newLeftNW = startLeft + dx;
+                            const newTopNW = startTop + dy;
+    
+                            if (newLeftNW >= 0 && newTopNW >= 0 && newWidthNW > 0 && newHeightNW > 0) {
+                                element.style.width = `${newWidthNW}px`;
+                                element.style.height = `${newHeightNW}px`;
+                                element.style.left = `${newLeftNW}px`;
+                                element.style.top = `${newTopNW}px`;
+                            }
+                            break;
+                        case 'ne':
+                            const newWidthNE = startWidth + dx;
+                            const newHeightNE = startHeight - dy;
+                            const newTopNE = startTop + dy;
+    
+                            if (newTopNE >= 0 && newWidthNE > 0 && newHeightNE > 0 && boxRect.right <= parentRect.right) {
+                                element.style.width = `${newWidthNE}px`;
+                                element.style.height = `${newHeightNE}px`;
+                                element.style.top = `${newTopNE}px`;
+                            }
+                            break;
+                        case 'sw':
+                            const newWidthSW = startWidth - dx;
+                            const newHeightSW = startHeight + dy;
+                            const newLeftSW = startLeft + dx;
+    
+                            if (newLeftSW >= 0 && newHeightSW > 0 && boxRect.bottom <= parentRect.bottom && newWidthSW > 0) {
+                                element.style.width = `${newWidthSW}px`;
+                                element.style.height = `${newHeightSW}px`;
+                                element.style.left = `${newLeftSW}px`;
+                            }
+                            break;
+                        case 'se':
+                            const newWidthSE = startWidth + dx;
+                            const newHeightSE = startHeight + dy;
+    
+                            if (boxRect.right <= parentRect.right && boxRect.bottom <= parentRect.bottom) {
+                                element.style.width = `${newWidthSE}px`;
+                                element.style.height = `${newHeightSE}px`;
+                            }
+                            break;
+                    }
                 }
-            } else if (isDragging1) {
-                element.style.top = `${startTop + dy}px`;
-                element.style.left = `${startLeft + dx}px`;
-            }
+            };
+    
+            const onMouseUp = () => {
+                isResizing1 = false;
+                isDragging1 = false;
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onMouseUp);
+            };
+    
+            const onMouseDown = (e) => {
+                if (e.target.dataset.resize) {
+                    isResizing1 = true;
+                    currentHandle = e.target.dataset.resize;
+                    startX = e.clientX;
+                    startY = e.clientY;
+                    startWidth = parseFloat(getComputedStyle(element).width);
+                    startHeight = parseFloat(getComputedStyle(element).height);
+                    startTop = parseFloat(getComputedStyle(element).top);
+                    startLeft = parseFloat(getComputedStyle(element).left);
+                    document.addEventListener('mousemove', onMouseMove);
+                    document.addEventListener('mouseup', onMouseUp);
+                } else {
+                    isDragging1 = true;
+                    startX = e.clientX;
+                    startY = e.clientY;
+                    startTop = parseFloat(getComputedStyle(element).top);
+                    startLeft = parseFloat(getComputedStyle(element).left);
+                    document.addEventListener('mousemove', onMouseMove);
+                    document.addEventListener('mouseup', onMouseUp);
+                }
+            };
+    
+            element.addEventListener('mousedown', onMouseDown);
         };
     
-        const onMouseUp = () => {
-            isResizing1 = false;
-            isDragging1 = false;
-            document.removeEventListener('mousemove', onMouseMove);
-            document.removeEventListener('mouseup', onMouseUp);
-        };
-    
-        const onMouseDown = (e) => {
-            if (e.target.dataset.resize) {
-                isResizing1 = true;
-                currentHandle = e.target.dataset.resize;
-                startX = e.clientX;
-                startY = e.clientY;
-                startWidth = parseFloat(getComputedStyle(element).width);
-                startHeight = parseFloat(getComputedStyle(element).height);
-                startTop = parseFloat(getComputedStyle(element).top);
-                startLeft = parseFloat(getComputedStyle(element).left);
-                document.addEventListener('mousemove', onMouseMove);
-                document.addEventListener('mouseup', onMouseUp);
-            } else {
-                isDragging1 = true;
-                startX = e.clientX;
-                startY = e.clientY;
-                startTop = parseFloat(getComputedStyle(element).top);
-                startLeft = parseFloat(getComputedStyle(element).left);
-                document.addEventListener('mousemove', onMouseMove);
-                document.addEventListener('mouseup', onMouseUp);
-            }
-        };
-    
-        element.addEventListener('mousedown', onMouseDown);
-    };
-    
-    // Function to duplicate the box
-    const duplicateBox = () => {
+        const duplicateBox = () => {
             const boxOpacity = getComputedStyle(box).opacity;
             if (boxOpacity === "1") {
                 const newBox = box.cloneNode(true);
@@ -505,22 +536,19 @@
                 console.log("Box opacity is not 1, duplication not allowed.");
             }
         };
-
-        // Initialize the draggable and resizable functionality
-       
     
-    // Add a keydown event listener for detecting Ctrl + D
-    document.addEventListener('keydown', (e) => {
-        if (e.ctrlKey && e.key === 'd') {
-            e.preventDefault(); // Prevent default action
-            duplicateBox();
-        }
-    });
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'd') {
+                e.preventDefault();
+                duplicateBox();
+            }
+        });
     
-    // Initialize the draggable and resizable functionality
-    makeDraggableAndResizable(box);
+        makeDraggableAndResizable(box);
     </script>
     
+
+
     
 
 
