@@ -27,7 +27,7 @@
 
 
            
-            /* overflow: hidden; */
+            overflow: hidden;
            
         }
 
@@ -370,7 +370,7 @@ opacity: 1;
 
             
             opacity: 1;
-            margin: 4;
+            margin: 8;
 
         }
         .clonehandle {
@@ -379,11 +379,18 @@ opacity: 1;
     opacity: 0;
 }
 .clonehandle1:hover {
-    border-radius: 50%;
+    
 }
-.clone:hover .resize-handle{
+.clone:hover .resize-handle {
   display: none;
+ 
 }
+.clone:hover .dataresize {
+  display: none;
+  
+ 
+}
+
 
     </style>
 </head>
@@ -866,11 +873,9 @@ opacity: 1;
         });
     </script>
 
-
 <script>
     const background = document.getElementById('background');
     let hoveredElement = null;
-    let isCtrlPressed = false;
 
     // Utility function to make elements draggable and resizable
     const makeDraggableAndResizable = (element) => {
@@ -892,7 +897,6 @@ opacity: 1;
                 element.style.left = `${newLeft}px`;
             } else if (isResizing) {
                 let newWidth = startWidth, newHeight = startHeight, newTop = startTop, newLeft = startLeft;
-
                 switch (currentHandle) {
                     case 'nw':
                         newWidth = startWidth - dx;
@@ -913,6 +917,20 @@ opacity: 1;
                     case 'se':
                         newWidth = startWidth + dx;
                         newHeight = startHeight + dy;
+                        break;
+                    case 'n':
+                        newHeight = startHeight - dy;
+                        newTop = startTop + dy;
+                        break;
+                    case 'e':
+                        newWidth = startWidth + dx;
+                        break;
+                    case 's':
+                        newHeight = startHeight + dy;
+                        break;
+                    case 'w':
+                        newWidth = startWidth - dx;
+                        newLeft = startLeft + dx;
                         break;
                 }
 
@@ -949,6 +967,7 @@ opacity: 1;
                 startTop = parseFloat(getComputedStyle(element).top);
                 startLeft = parseFloat(getComputedStyle(element).left);
             }
+
             document.addEventListener('mousemove', onMouseMove);
             document.addEventListener('mouseup', onMouseUp);
         };
@@ -960,34 +979,27 @@ opacity: 1;
     const duplicateElement = () => {
         if (hoveredElement && hoveredElement.id !== "background") {
             const clone = hoveredElement.cloneNode(true);
-            clone.setAttribute("class","clone")
+            clone.setAttribute("class", "clone");
             clone.style.position = "absolute";
-            
             clone.style.left = `${hoveredElement.offsetLeft + 10}px`;
             clone.style.top = `${hoveredElement.offsetTop + 10}px`;
             clone.style.zIndex = "10";
             background.appendChild(clone);
-            makeDraggableAndResizable(clone);
 
-            // Add resizing handles dynamically if not present
-            ['nw', 'ne', 'sw', 'se'].forEach((direction) => {
+            makeDraggableAndResizable(clone); // Reinitialize draggable and resizable functionality
+
+            // Add 8 resizing handles dynamically if not present
+            const directions = ['nw', 'ne', 'sw', 'se', 'n', 'e', 's', 'w'];
+            directions.forEach((direction) => {
                 const handle = document.createElement('div');
-                
-                
-
                 handle.dataset.resize = direction;
-
                 handle.className = "clonehandle clonehandle1";
                 handle.style.position = 'absolute';
                 handle.style.width = '7px';
                 handle.style.height = '7px';
-
-               
-                handle.setAttribute("display","none")
-              
                 handle.style.background = '#0e4e46';
                 handle.style.cursor = `${direction}-resize`;
-
+                handle.style.display = "none";  // Hide by default
                 switch (direction) {
                     case 'nw':
                         handle.style.top = '-5px';
@@ -1005,26 +1017,59 @@ opacity: 1;
                         handle.style.bottom = '-5px';
                         handle.style.right = '-5px';
                         break;
+                    case 'n':
+                        handle.style.top = '-5px';
+                        handle.style.left = '50%';
+                        handle.style.transform = 'translateX(-50%)';
+                        break;
+                    case 'e':
+                        handle.style.top = '50%';
+                        handle.style.right = '-5px';
+                        handle.style.transform = 'translateY(-50%)';
+                        break;
+                    case 's':
+                        handle.style.bottom = '-5px';
+                        handle.style.left = '50%';
+                        handle.style.transform = 'translateX(-50%)';
+                        break;
+                    case 'w':
+                        handle.style.top = '50%';
+                        handle.style.left = '-5px';
+                        handle.style.transform = 'translateY(-50%)';
+                        break;
                 }
-
                 clone.appendChild(handle);
+            });
+
+            // Show the handles when hovered
+            clone.addEventListener('mouseenter', () => {
+                const handles = clone.querySelectorAll('.clonehandle');
+                handles.forEach(handle => handle.style.display = 'block');
+            });
+
+            clone.addEventListener('mouseleave', () => {
+                const handles = clone.querySelectorAll('.clonehandle');
+                handles.forEach(handle => handle.style.display = 'none');
             });
         }
     };
 
+    // Listen to mouseover event to track hovered element
     document.addEventListener("mouseover", (e) => {
         if (e.target.matches("img, div") && e.target.id !== "background") {
             hoveredElement = e.target;
         }
     });
 
+    // Listen to keyboard event for Ctrl+D duplication
     document.addEventListener("keydown", (e) => {
         if (e.ctrlKey && e.key === 'd') {
-            e.preventDefault();
+            e.preventDefault();  // Prevent default behavior (e.g., browser duplicating tabs)
             duplicateElement();
         }
     });
 </script>
+
 
 
 </body>
