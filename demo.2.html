@@ -872,7 +872,6 @@ opacity: 1;
             });
         });
     </script>
-
 <script>
     const background = document.getElementById('background');
     let hoveredElement = null;
@@ -1066,6 +1065,13 @@ opacity: 1;
         if (e.ctrlKey && e.key === 'd') {
             e.preventDefault();  // Prevent default behavior (e.g., browser duplicating tabs)
             duplicateElement();
+        }
+
+        // Listen to delete key for deleting hovered element
+        if (e.key === 'Delete' || e.key === 'Backspace') {
+            if (hoveredElement && hoveredElement.id !== "background") {
+                hoveredElement.remove();
+            }
         }
     });
 </script>
