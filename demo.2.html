@@ -1342,12 +1342,12 @@ opacity: 1;
         seconddiv.style.gridTemplateColumns='auto 1fr auto'
       
         seconddiv.style.borderBottom='2px solid #f7f2f6'
-
+        seconddiv.style.alignItems='center'
         seconddiv.style.gridColumn = '-1 / -3';
         seconddiv.style.gridRow = '-4 / -1';
+        seconddiv.style.gridGap='35px'
         seconddiv.style.alignItems='center'
-            seconddiv.style.margin='5px'
-        seconddiv.style.padding='5px'
+          seconddiv.style.alignContent='start'
 
        
         seconddiv.style.cursor='pointer'
@@ -1358,16 +1358,18 @@ opacity: 1;
         seconddivicon.src="images/icon/opacity.png"
         seconddivicon.style.width='35px'
         seconddivicon.style.height='35px'
-        seconddivicon.style.marginLeft='-5px'
+        seconddivicon.style.marginLeft='10px'
 
         seconddiv.appendChild(seconddivicon)
+        
 
         let seconddivtext=document.createElement('span')
         seconddivtext.className='seconddivtext'
         seconddivtext.id='seconddivtext'
+     
           seconddivtext.innerHTML='Opacity'
           seconddivtext.style.fontSize='16px'
-          seconddivtext.style.marginLeft='24%'
+        //   seconddivtext.style.marginLeft='34%'
          
       
 
@@ -1383,11 +1385,20 @@ opacity: 1;
         seconddivarrow.style.cursor='pointer'
         seconddiv.appendChild(seconddivarrow)
 
+        
+       
+
 
 
         let secondpopup=document.createElement("div")
         secondpopup.id='secondpopup'
         secondpopup.className='secondpopup'
+
+
+        secondpopup.style.display='grid'
+        secondpopup.style.gridTemplateColumns='auto 1fr '
+          secondpopup.style.gridTemplateRows='1fr 1fr'
+        // secondpopup.style.gridGap='45%'
         secondpopup.style.backgroundColor='white'
         secondpopup.style.width='193px'
         secondpopup.style.height='73px'
@@ -1396,16 +1407,65 @@ opacity: 1;
         secondpopup.style.borderRadius='15px'
         secondpopup.style.zIndex='999'
         secondpopup.style.transition = 'opacity 1s ease, visibility 1s ease';
-
-    
-
        
-      
-
-        
         backgroundMain.appendChild(secondpopup)
 
 
+        let secondpopupText=document.createElement('span')
+        secondpopupText.id='secondpopupText'
+        secondpopupText.className='secondpopupText'
+        secondpopupText.innerHTML='Opacity'
+        secondpopupText.style.fontSize='13px'
+        
+       
+        secondpopup.appendChild(secondpopupText)
+
+        let secondpopupPer=document.createElement('input')
+        secondpopupPer.id='secondpopupPer'
+        secondpopupPer.className='secondpopupPer'
+        secondpopupPer.type='text'
+        secondpopupPer.value='100%'
+        secondpopupPer.style.border='none'
+        
+        secondpopupPer.style.width='100%'
+        secondpopupPer.style.height='20px'
+        secondpopupPer.style.borderRadius='20%'
+        secondpopupPer.readOnly=true
+       
+        
+        
+
+        secondpopupPer.addEventListener('mouseover',function(){
+
+
+            secondpopupPer.style.border='none'
+
+        });
+        secondpopupPer.addEventListener('focus',function(){
+            secondpopupPer.style.border='none'
+            secondpopupPer.style.outline='none'
+           
+        });
+
+      
+        
+        
+
+        let seconddivrange=document.createElement('input')
+        seconddivrange.id='seconddivrange'
+        seconddivrange.className='seconddivrange'
+        seconddivrange.type='range'
+        seconddivrange.min='10'
+        seconddivrange.max='100'
+        seconddivrange.value='100'
+        seconddivrange.style.width='130%'
+        seconddivrange.style.color='#6b055a'
+
+        
+
+      
+        secondpopup.appendChild(secondpopupPer)
+        secondpopup.appendChild(seconddivrange)
 
 //         seconddiv.style.gridColumn='-1 /-3 '
 //         seconddiv.style.gridRow=-'-4/-1'
@@ -1428,13 +1488,34 @@ opacity: 1;
 
         popupBody.appendChild(seconddiv)
 
-
-
+    
 
         
 
        
+        seconddiv.addEventListener('click',function(){
+            secondpopup.style.opacity='1'
+           
+        })
+        secondpopup.style.opacity='0'
 
+        //     if (!popup.contains(event.target)) {
+//         popup.style.display = 'none'; // Hide the popup
+//     }
+
+// document.addEventListener("click", (e) => {
+//         if (!popup.contains(e.target)) {
+//             popup.style.display = 'none';
+//         }
+//     });
+//         document.addEventListener('click',(e)=>{
+//             if(!secondpopup.contains(e.target)){
+
+// secondpopup.style.opacity='0'
+// }
+            
+//         })
+      
 
         closepopup.addEventListener('click',()=>{
 
@@ -1466,10 +1547,14 @@ opacity: 1;
                 const clickedElement = e.target; // Element that was right-clicked
 
                 console.log("Right-clicked element:", clickedElement);
+                selectedElement=clickedElement
+                selectedElementId=selectedElement.id
 
+               
+               
                 let checkid=   selectedElement=clickedElement
             //   let checkid=  selectedElement.event.srcElement.id
-                console.log("hiiiiiiiiiiii",checkid)
+              
 
                 // Show the popup at the cursor position
                 popup.style.opacity='1'
@@ -1481,6 +1566,21 @@ opacity: 1;
                 popup.style.display = 'none'; // Hide the popup if it is visible
             }
         });
+
+
+        function moverange(){
+        secondpopupPer.value = seconddivrange.value + '%'
+
+        if (selectedElement) {
+        // Normalize the slider value to a range between 0 and 1
+        selectedElement.style.opacity = seconddivrange.value / 100;
+    }
+       }
+
+       seconddivrange.addEventListener('mousedown',function(){
+        document.addEventListener('mousemove',moverange)
+           
+       })
 
 
 
