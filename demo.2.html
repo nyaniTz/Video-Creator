@@ -63,6 +63,7 @@
 
 #image-box:hover .imageHandle{
 opacity: 1;
+
 }
 
 
@@ -1277,6 +1278,17 @@ opacity: 1;
         // firstdiv.style.backgroundColor='red'
         firstdiv.style.cursor='pointer'
 
+        firstdiv.addEventListener('mouseover',function(){
+
+            firstdiv.style.transform='scale(0.96)'
+            firstdiv.style.transition='transform 0.5s ease'
+        })
+
+        firstdiv.addEventListener('mouseout',function(){
+
+            firstdiv.style.transform='scale(1)'
+            firstdiv.style.transition='transform 0.5s ease'
+        })
     //     grid-column: -1 / -3;
     // grid-row: -5 / -1;
     // width: 100%;
@@ -1351,7 +1363,24 @@ opacity: 1;
         seconddiv.style.gridRow = '-4 / -1';
         seconddiv.style.gridGap='35px'
         seconddiv.style.alignItems='center'
+        seconddiv.style.padding='5px'
+        seconddiv.style.cursor='pointer'
           seconddiv.style.alignContent='start'
+          
+          
+
+          seconddiv.addEventListener('mouseover', function () {
+   seconddiv.style.transform='scale(0.96)'
+   seconddiv.style.transition='transform 0.5s ease'
+});
+
+seconddiv.addEventListener('mouseout', function () {
+    seconddiv.style.transform = 'scale(1)'; 
+});
+
+seconddiv.addEventListener('click',function(){
+    seconddivrange.style.display='block'
+})
 
        
         seconddiv.style.cursor='pointer'
@@ -1389,8 +1418,98 @@ opacity: 1;
         seconddivarrow.style.cursor='pointer'
         seconddiv.appendChild(seconddivarrow)
 
+
+
         
        
+        //third Div
+        let thriddiv=document.createElement('div')
+        thriddiv.id='thriddiv'
+        thriddiv.className='thriddiv'
+        thriddiv.style.display='grid'
+        thriddiv.style.gridTemplateColumns='auto 1fr auto'
+
+        thriddiv.style.borderBottom='2px solid #f7f2f6'
+        seconddiv.style.alignItems='center'
+
+
+        thriddiv.style.gridColumn='-1 /-3'
+        thriddiv.style.gridRow='-3 /-1'
+        
+        thriddiv.style.gridGap='20px'
+        thriddiv.style.width='90%'
+        thriddiv.style.padding='10px'
+        thriddiv.style.cursor='pointer'
+
+        
+       
+        thriddiv.addEventListener('mouseover',function(){
+
+            thriddiv.style.transform='scale(0.95)'
+            thriddiv.style.transition='transform 0.5s ease'
+        })
+
+        thriddiv.addEventListener('mouseout',function(){
+
+            thriddiv.style.transform='scale(1)'
+            thriddiv.style.transition='transform 0.5s ease'
+        })
+        popupBody.appendChild(thriddiv)
+
+       
+
+        let thirddicon=document.createElement('img')
+         thirddicon.src='images/icon/Dublicate.png'
+        thirddicon.style.width='25px'
+        thirddicon.style.height='20px'
+        thirddicon.style.marginLeft='10px'
+
+        
+        thriddiv.appendChild(thirddicon)
+
+        let thirddivtext=document.createElement('span')
+        thirddivtext.id='thirddivtext'
+        thirddivtext.className='thirddivtext'
+        thirddivtext.innerHTML='Dublicate'
+        thirddivtext.style.marginLeft='32%'
+
+        thriddiv.appendChild(thirddivtext)
+
+        let thirdivarrow=document.createElement('img')
+        thirdivarrow.id='thirdivarrow'
+        thirdivarrow.className='thirdivarrow'
+        thirdivarrow.innerHTML='color'
+        thirdivarrow.src='images/icon/fi-rr-angle-small-right.svg'
+        thirdivarrow.style.width='25px'
+        thirdivarrow.style.height='20px'
+        thirdivarrow.style.marginLeft='12px'
+
+        thriddiv.appendChild(thirdivarrow)
+
+
+
+        thriddiv.addEventListener('click', function(e) {
+    e.preventDefault();
+
+    if (selectedElement) {
+        // Set hoveredElement to the selectedElement
+        hoveredElement = selectedElement;
+
+        // Call the duplicateElement function
+        duplicateElement();
+
+        // Log the action for debugging
+        console.log("Element duplicated:", selectedElement);
+    } else {
+        console.log("No element selected to duplicate");
+    }
+});
+
+    
+
+
+
+
 
 
 
@@ -1439,6 +1558,8 @@ opacity: 1;
         // secondpopup.style.position='absolute'
        
         
+
+    
         
 
         secondpopupPer.addEventListener('mouseover',function(){
@@ -1470,6 +1591,7 @@ opacity: 1;
         seconddivrange.style.width='130%'
         seconddivrange.style.color='#6b055a'
         seconddivrange.style.cursor='grab'
+        seconddivrange.style.display='none'
 
         
 
