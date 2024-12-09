@@ -406,7 +406,7 @@ opacity: 1;
 
 
 
-.color-picker-container {
+.color-picker-container:hover {
                 position: relative;
                 display: inline-block;
            width: 100px;
@@ -423,7 +423,7 @@ opacity: 1;
             }
             
 
-            .color-picker-container{
+            .color-picker-container:hover {
 
 
 }
@@ -494,7 +494,7 @@ opacity: 1;
 
         <!-- <div id="colorDisplay1" class="colorDisplay" style="background-color: #0e4e46;width: 34px;">Hello World</div> -->
 <div class="color-popup">
-    <input type="color" id="color-picker" />
+    <input type="color" id="color-picker" class="color-picker"/>
 </div>
 
     </div>
@@ -663,6 +663,8 @@ opacity: 1;
                         dragMouseDown1(e);
                     }
                 };
+
+                let textBox=document.getElementById('text-box')
     
 
     
@@ -674,6 +676,7 @@ opacity: 1;
                     document.onmouseup = closedragElement1;
                     document.onmousemove = elementDrag1;
                 }
+
     
                 function elementDrag1(e) {
                     e = e || window.event;
@@ -768,6 +771,7 @@ opacity: 1;
                                 newWidth -= dx;
                                 newHeight += dy;
                                 newLeft += dx;
+                                newHeight
                             } else if (handle.classList.contains("se")) {
                                 newWidth += dx;
                                 newHeight += dy;
@@ -1398,7 +1402,7 @@ opacity: 1;
         secondpopup.style.display='grid'
         secondpopup.style.gridTemplateColumns='auto 1fr '
           secondpopup.style.gridTemplateRows='1fr 1fr'
-        // secondpopup.style.gridGap='45%'
+        // secondpopup.style.gridGap='55%'
         secondpopup.style.backgroundColor='white'
         secondpopup.style.width='193px'
         secondpopup.style.height='73px'
@@ -1407,7 +1411,7 @@ opacity: 1;
         secondpopup.style.borderRadius='15px'
         secondpopup.style.zIndex='999'
         secondpopup.style.transition = 'opacity 1s ease, visibility 1s ease';
-       
+        secondpopup.style.transition=' opacity 0.3s ease; '
         backgroundMain.appendChild(secondpopup)
 
 
@@ -1416,6 +1420,7 @@ opacity: 1;
         secondpopupText.className='secondpopupText'
         secondpopupText.innerHTML='Opacity'
         secondpopupText.style.fontSize='13px'
+        secondpopupText.style.marginLeft='10px'
         
        
         secondpopup.appendChild(secondpopupText)
@@ -1431,6 +1436,7 @@ opacity: 1;
         secondpopupPer.style.height='20px'
         secondpopupPer.style.borderRadius='20%'
         secondpopupPer.readOnly=true
+        // secondpopup.style.position='absolute'
        
         
         
@@ -1440,6 +1446,7 @@ opacity: 1;
 
             secondpopupPer.style.border='none'
 
+            
         });
         secondpopupPer.addEventListener('focus',function(){
             secondpopupPer.style.border='none'
@@ -1447,7 +1454,9 @@ opacity: 1;
            
         });
 
-      
+        
+
+       
         
         
 
@@ -1460,6 +1469,7 @@ opacity: 1;
         seconddivrange.value='100'
         seconddivrange.style.width='130%'
         seconddivrange.style.color='#6b055a'
+        seconddivrange.style.cursor='grab'
 
         
 
@@ -1546,7 +1556,7 @@ opacity: 1;
                 e.preventDefault(); // Prevent the default right-click menu
                 const clickedElement = e.target; // Element that was right-clicked
 
-                console.log("Right-clicked element:", clickedElement);
+                
                 selectedElement=clickedElement
                 selectedElementId=selectedElement.id
 
@@ -1555,6 +1565,8 @@ opacity: 1;
                 let checkid=   selectedElement=clickedElement
             //   let checkid=  selectedElement.event.srcElement.id
               
+            seconddivrange.value = (selectedElement.style.opacity || 1) * 100;
+            secondpopupPer.value = seconddivrange.value + '%';
 
                 // Show the popup at the cursor position
                 popup.style.opacity='1'
@@ -1568,25 +1580,51 @@ opacity: 1;
         });
 
 
-        function moverange(){
-        secondpopupPer.value = seconddivrange.value + '%'
+       function moverange() {
+    // Update the range display value
+    secondpopupPer.value = seconddivrange.value + '%';
 
-        if (selectedElement) {
-        // Normalize the slider value to a range between 0 and 1
+    // Update the opacity of the selected element
+    if (selectedElement) {
         selectedElement.style.opacity = seconddivrange.value / 100;
     }
-       }
+}
 
-       seconddivrange.addEventListener('mousedown',function(){
-        document.addEventListener('mousemove',moverange)
-           
-       })
+// Add event listeners for range sliding
+seconddivrange.addEventListener('mousedown', function () {
+    document.addEventListener('mousemove', moverange);
+    popup.style.opacity='0'
+});
+
+// Stop listening for mousemove on mouseup
+document.addEventListener('mouseup', function () {
+    document.removeEventListener('mousemove', moverange);
+});
+
+      // Add an event listener for mouse entering the secondpopup
+// secondpopup.addEventListener('mouseenter', function () {
+//     secondpopup.style.opacity = '1'; // Set opacity to fully visible
+// });
+
+// Add an event listener for mouse leaving the secondpopup
+secondpopup.addEventListener('mouseleave', function (e) {
+    e.preventDefault()
+
+    setTimeout(()=>
+{
+    secondpopup.style.opacity = '0'; // Set opacity to hidden
+    // popup.style.display = 'block';
+    popup.style.opacity = '1';
+   
+}, 200)
+});
+
 
 
 
     // Hide popup if clicking outside of it
     document.addEventListener("click", (e) => {
-        if (!popup.contains(e.target)) {
+        if (!popup.contains(e.target) && !secondpopup.contains(e.target)) {
             popup.style.display = 'none';
         }
     });
@@ -1623,7 +1661,18 @@ opacity: 1;
     // Add click event listener to the colorDisplay div
     firstdiv1.addEventListener("click", function() {
         // Programmatically trigger a click on the color picker
+         popup.style.transition='1 0.7s ease'
+        popup.style.opacity='0.3'
+        
+       popup.style.opacity=0.2
+
         colorPicker.click();
+        setTimeout(()=>{
+            
+            popup.style.display='none'
+        },200)
+        
+        // seconddivrange.style.cursor='default'
     });
 
   
@@ -1637,12 +1686,29 @@ opacity: 1;
         } 
         // Check if it's a div and not contenteditable
         else if (selectedElement.nodeName === "DIV" && 
-                 (!selectedElement.hasAttribute("contenteditable") || selectedElement.getAttribute("contenteditable") !== "true")) {
+                 (!selectedElement.hasAttribute("contenteditable") || selectedElement.getAttribute("contenteditable") !== "true") || !secondpopup ) {
             // Change background color for divs
             selectedElement.style.backgroundColor = event.target.value;
         }
     }
 });
+
+
+let colorPicker1 = document.querySelector('#color-picker');
+
+// Show `secondpopup` when the color picker gains focus
+colorPicker1.addEventListener('focus', function () {
+    secondpopup.style.opacity = '1'; // Show the second popup
+    secondpopup.style.pointerEvents = 'auto'; // Enable interaction if needed
+});
+
+// Hide `secondpopup` when the color picker loses focus
+colorPicker1.addEventListener('blur', function () {
+    secondpopup.style.opacity = '0'; // Hide the second popup
+    secondpopup.style.pointerEvents = 'none'; // Prevent interaction if needed
+});
+
+
 
 
 //     document.addEventListener('click', function(event) {
