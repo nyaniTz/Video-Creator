@@ -49,6 +49,7 @@
 #image-box {
     position: relative;
     display: inline-block;
+    /* z-index: 4; */
 }
 
 /* Handle styles */
@@ -105,7 +106,7 @@ opacity: 1;
             position: absolute;
             width: 6px;
             height: 6px;
-            z-index: 4;
+            z-index: 0;
             opacity: 0;
 
             transition: 300ms all;
@@ -188,7 +189,7 @@ opacity: 1;
             border: 1px solid #ccc;
             border-radius: 10px;
             width: 600px;
-            z-index: 2;
+            z-index: 0;
         }
 
         #talk-box-header {
@@ -222,7 +223,7 @@ opacity: 1;
             text-align: center;
             resize: none;
             /* To disable native resize */
-            z-index: 19;
+            z-index: 99;
             border: none;
 
             transition: 300ms padding;
@@ -1568,7 +1569,7 @@ seconddiv.addEventListener('click',function(){
         
           thirdpopupdiv1.addEventListener('click',function(){
 
-            selectedElement.style.zIndex='9999'
+            selectedElement.style.zIndex='99'
 
           })
         let thirdpopupicon=document.createElement('img')
@@ -1649,7 +1650,7 @@ seconddiv.addEventListener('click',function(){
         thirdpopupdiv2.addEventListener('click',function(){
 
             selectedElement.style.zIndex='0'
-            
+
         })
 
             let thirddiv2icon=document.createElement('img')
@@ -1888,7 +1889,7 @@ seconddiv.addEventListener('click',function(){
         secondpopup.style.border='0'
         secondpopup.style.boxShadow = '2px 4px 10px rgba(0, 0, 0, 0.5)';
         secondpopup.style.borderRadius='15px'
-        secondpopup.style.zIndex='999'
+        secondpopup.style.zIndex='999999'
         secondpopup.style.transition = 'opacity 1s ease, visibility 1s ease';
         secondpopup.style.transition=' opacity 0.3s ease; '
 
