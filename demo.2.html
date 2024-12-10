@@ -1118,11 +1118,12 @@ opacity: 1;
             if (hoveredElement && hoveredElement.id !== "background") {
                 hoveredElement.remove();
             }
+         
         }
     });
 
 
-
+  
 
     document.addEventListener("keydown", (e) => {
         if (e.ctrlKey && e.key === 'z') {
@@ -1529,6 +1530,10 @@ seconddiv.addEventListener('click',function(){
         fourthdiv.style.padding='4px'
         fourthdiv.style.cursor='pointer'
         fourthdiv.style.marginLeft='12px'
+        
+
+
+
 
 
         fourthdiv.addEventListener('mouseover',function(){
@@ -1539,6 +1544,7 @@ seconddiv.addEventListener('click',function(){
 
       
 
+
  fourthdiv.addEventListener('mouseout',function(){
 
             fourthdiv.style.transform='scale(1)'
@@ -1546,7 +1552,37 @@ seconddiv.addEventListener('click',function(){
         })
 
 
+       
+
+
         popupBody.appendChild(fourthdiv)
+
+        fourthdiv.addEventListener('click', function() {
+            
+            console.log(selectedElementId)
+            
+            if (selectedElementId !== "background") {
+              
+            
+        selectedElement.remove();
+        popup.style.opacity='0.3'
+        popup.style.transform='scale(0.98)'
+        popup.style.transition='transform 0.3s ease'
+
+        setTimeout(()=>{
+
+            popup.style.display='none'
+           
+        },300)
+
+      
+            }
+    }
+);
+
+
+
+
 
         let fourthdivicon=document.createElement('img')
         fourthdivicon.src='images/icon/Delete.png'
