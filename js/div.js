@@ -1,7 +1,7 @@
 
     
+const box = document.getElementById('draggable-resizable-box');
 
-        const box = document.getElementById('draggable-resizable-box');
         const background1 = document.getElementById('background');
         let currentHandle, isResizing = false, isDragging = false;
         let startX, startY, startWidth, startHeight, startTop, startLeft;
@@ -115,8 +115,19 @@
     
         makeDraggableAndResizable1(box);
  
-    
-    
+
+
+       
+   
+let thisdiv = box.querySelectorAll('[data-resize]');
+
+box.addEventListener('click', function() {
+   box.style.border='1px solid #081b2d'
+    thisdiv.forEach(function(div) {
+        div.style.opacity = '1'; // Set opacity for each element
+
+    });
+});
 
 
     // const duplicateBox = () => {

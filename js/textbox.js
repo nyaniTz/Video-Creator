@@ -1,5 +1,5 @@
 
-
+        let thebackground=document.getElementById('background')
         makeResizable1AndDraggable1(document.getElementById("text-box"));
     
         function makeResizable1AndDraggable1(elmnt) {
@@ -149,4 +149,42 @@
         }
 
     
-   
+        let textBox1 = document.getElementById('text-box');
+        let textBoxhandle = textBox1.querySelectorAll('.resize-handle'); // Use class selector
+        
+        // Function to show resize handles
+        function showResizeHandles() {
+            textBoxhandle.forEach(function(div) {
+                div.style.opacity = '1'; // Set opacity for each element
+                div.style.margin = '8px'; // Set margin for each element
+            });
+        }
+        
+        // Function to hide resize handles
+        function hideResizeHandles() {
+            textBoxhandle.forEach(function(div) {
+                div.style.opacity = '0'; // Set opacity for each element
+                div.style.margin = '0'; // Reset margin for each element
+            });
+        }
+        
+        // Show resize handles when clicking on the text box
+        textBox1.addEventListener('click', function(event) {
+            event.stopPropagation(); // Prevent the click event from bubbling up to the document
+            // textBox1.style.border = '1px solid #081b2d'; // Optional: Change border style
+            showResizeHandles(); // Show the resize handles
+        });
+        
+        // Hide resize handles when clicking anywhere else in the document
+        document.addEventListener('click', function(e) {
+            if(thebackground.contains(e.target) && (e.target.tagName==='IMG'||e.target.tagName=='DIV'|| e.target.tagName==='INPUT') ){
+                hideResizeHandles(); // Hide the resize handles
+
+            }
+            
+        });
+
+      
+
+  
+       

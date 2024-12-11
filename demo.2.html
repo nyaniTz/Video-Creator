@@ -39,17 +39,17 @@
         
             gap: 1px;
             align-items: center;
-            top:16%;
+            top:15%;
             display: grid;
-            grid-template-columns: repeat(7, 1fr);
+            grid-template-columns: repeat(6, 1fr);
             /* grid-template-rows: repeat(3, 1fr); */
 
             width: 70%;
             height: 5vh;
-            background-image: url('background.png');
+            /* background-image: url('background.png'); */
             /* background-size: cover; */
             background-position: center;
-            border: #6b055a solid 2px;
+            /* border: #6b055a solid 2px; */
             z-index: 9999;
 
 
@@ -57,7 +57,13 @@
            
             overflow: hidden; 
         }
+.animediv{
 
+
+    -webkit-box-shadow: inset -11px 14px 22px -22px rgba(66, 68, 90, 1);
+-moz-box-shadow: inset -11px 14px 22px -22px rgba(66, 68, 90, 1);
+box-shadow: inset -11px 14px 22px -22px rgba(66, 68, 90, 1);
+}
         #dux {
             width: 250px;
             height: 250px;
@@ -140,14 +146,14 @@ opacity: 1;
         }
 
         #draggable-resizable-box:hover [data-resize] {
-            opacity: 1;
+            
         }
 
         #draggable-resizable-box:hover {
             cursor: all-scroll;
 
             padding: 1px;
-            border: 1px solid #081b2d;
+            
 
         }
 
@@ -270,7 +276,7 @@ opacity: 1;
         }
 
         #text-box:hover .resize-handle {
-            opacity: 1;
+           
             margin: 8;
         }
 
@@ -465,7 +471,7 @@ opacity: 1;
 
 <body>
 
-    <div id="mainBar" class="mainBar">hello</div>
+    <div id="mainBar" class="mainBar"></div>
 
     <div id="background">
 
