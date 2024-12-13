@@ -24,6 +24,7 @@
 
         let popup =document.createElement("div")
         popup.className="popup"
+        popup.id="popup"
        
         popup.style.width='200px'
         popup.style.height='250px'

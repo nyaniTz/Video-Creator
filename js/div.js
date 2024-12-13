@@ -119,15 +119,7 @@ const box = document.getElementById('draggable-resizable-box');
 
        
    
-let thisdiv = box.querySelectorAll('[data-resize]');
 
-box.addEventListener('click', function() {
-   box.style.border='1px solid #081b2d'
-    thisdiv.forEach(function(div) {
-        div.style.opacity = '1'; // Set opacity for each element
-
-    });
-});
 
 
     // const duplicateBox = () => {

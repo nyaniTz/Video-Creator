@@ -141,12 +141,13 @@ opacity: 1;
             height: 6px;
             z-index: 0;
             opacity: 0;
+          
 
             transition: 300ms all;
         }
 
         #draggable-resizable-box:hover [data-resize] {
-            
+            margin:3px;
         }
 
         #draggable-resizable-box:hover {
@@ -264,7 +265,7 @@ opacity: 1;
 
         #text-box:hover {
             cursor: all-scroll;
-            padding: 20px;
+            transform: scale(0.96);
             /* border: 1px solid #081b2d; */
 
         }
@@ -277,7 +278,7 @@ opacity: 1;
 
         #text-box:hover .resize-handle {
            
-            margin: 8;
+            margin: 3;
         }
 
         .resize-handle {
@@ -399,29 +400,35 @@ opacity: 1;
 
         #speakButton {}
 
+        .clone{
 
-        .clone:hover .clonehandle{
+            border:none;
 
+        }
+
+
+        .clone:hover .resize-handle{
 
             
-            opacity: 1;
-            margin: 8;
+
+            
+           
+           
 
         }
         .clonehandle {
+            
     background-color: #eaf5f3;
-    cursor: pointer;
+    /* cursor: pointer; */
     opacity: 0;
 }
-.clonehandle1:hover {
-    
-}
+
 .clone:hover .resize-handle {
-  display: none;
- 
+
+    opacity: 0;
 }
 .clone:hover .dataresize {
-  display: none;
+
   
  
 }
@@ -463,6 +470,19 @@ opacity: 1;
 
 }
     
+    
+.clone   .resize-handle{
+
+   
+    margin:0px;
+    display:none;
+
+
+}
+.clone{
+
+    border: none;
+}
            
 
 
@@ -507,9 +527,9 @@ opacity: 1;
 
 
 
-        <div id="text-box">
-            <div id="text-content" style="cursor: auto;" contenteditable="true">I'm Near East Video Editor</div>
-            <!-- Resizable handles -->
+        <div id="text-box" class="parent">
+            <div id="text-content" class="child" style="cursor: auto;" contenteditable="true">I'm Near East Video Editor</div>
+          
             <div class="resize-handle nw"></div>
             <div class="resize-handle ne"></div>
             <div class="resize-handle sw"></div>
@@ -521,7 +541,7 @@ opacity: 1;
         </div>
 
 
-        <div id="draggable-resizable-box">
+        <div id="draggable-resizable-box" class="box">
             <div class="dataresize" data-resize="nw"></div>
             <div class="dataresize" data-resize="ne"></div>
             <div class="dataresize" data-resize="sw"></div>
@@ -567,6 +587,7 @@ opacity: 1;
     <script src="js/clone.js " > </script>
     <script src="js/popup.js " > </script>
     <script src="js/menubar.js " > </script>
+    <script src="js/clickhandle.js" ></script>
 
     
 
