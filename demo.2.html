@@ -4,6 +4,12 @@
     <title>Dux Avatar Demo</title>
     <style>
         /* Basic styling for the Dux image */
+        body{
+/* 
+            display:grid;
+            grid-template-columns: repeat(1fr 1fr 1fr);
+            grid-template-rows: repeat(1fr 1fr  1fr); */
+        }
         #background {
             position: fixed;
             top: 20%;
@@ -57,6 +63,31 @@
            
             overflow: hidden; 
         }
+        .AnimationPanelMain{
+
+
+            display: grid;
+            gap: 1px;
+            align-items: center;
+            /* background-color: #081b2d; */
+            /* grid-template-rows: repeat(6, 1fr); */
+            width: 10%;
+            height: 70.4vh;
+            z-index: 9999;
+            position: fixed; /* Fixed positioning */
+            right: 0; /* Align to the right */
+            top: 20%; /* Optional: adjust vertical position */
+         
+            display: none;
+
+           
+        }
+
+        .input1:focus{
+            border:none;
+            outline: none;
+        }
+        
 .animediv{
 
 
@@ -271,7 +302,7 @@ opacity: 1;
         }
 
         #text-box .resize-handle {
-            margin: 8;
+            margin: 4;
             opacity: 0;
             transition: 300ms all;
         }
@@ -489,8 +520,8 @@ opacity: 1;
 }
 
 .clone {
-    -webkit-text-size-adjust: auto; /* or none */
-    text-size-adjust: auto; /* or none */
+    /* -webkit-text-size-adjust: auto; /* or none */
+    /* text-size-adjust: auto; or none */ 
 }
 
     </style>
@@ -499,6 +530,9 @@ opacity: 1;
 <body>
 
     <div id="mainBar" class="mainBar"></div>
+   
+    <div id="AnimationPanelMain" class="AnimationPanelMain" > </div>
+
 
     <div id="background">
 
@@ -595,7 +629,7 @@ opacity: 1;
     <script src="js/popup.js " > </script>
     <script src="js/menubar.js " > </script>
     <script src="js/clickhandle.js" ></script>
-
+    <script src="js/AniamationPanel.js" ></script>
     
 
 </body>

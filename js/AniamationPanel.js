@@ -1,0 +1,440 @@
+
+
+let AnimationPanelMain=document.getElementById("AnimationPanelMain")
+const animationpanel=document.createElement("div")
+animationpanel.className="animationpanel"
+animationpanel.id="animationpanel"
+// animationpanel.textContent="animation panel"
+animationpanel.style.color="white"
+
+animationpanel.style.boxShadow = '1px 8px 24px 0px rgb(217, 218, 226)'
+animationpanel.style.width="100%"
+animationpanel.style.height='100%'
+animationpanel.style.alignItems='top'
+animationpanel.style.display='grid'
+animationpanel.style.gridTemplateRows='repeat(8, 1fr )'
+
+animationpanel.style.backgroundColor='white'
+animationpanel.style.alignItems = 'start'; 
+animationpanel.style.zIndex='99999'
+animationpanel.style.gridRow='-1 / -7'
+AnimationPanelMain.appendChild(animationpanel)
+
+
+let updiv=document.createElement("div")
+updiv.className="updiv"
+updiv.id="updiv"
+
+updiv.style.width='100%'
+updiv.style.height='100%'
+updiv.style.borderBottom='2px solid #f7f2f6'
+// updiv.style.backgroundColor='black'
+updiv.style.display='grid'
+updiv.style.gap='7px'
+updiv.style.gridTemplateColumns='1fr auto 1fr'
+updiv.style.alignItems='center'
+updiv.style.gridRow='-9/-8 '
+updiv.style.cursor='pointer'
+animationpanel.appendChild(updiv)
+
+updiv.addEventListener("mouseenter",function(e){
+
+    updiv.style.transform='scale(0.94)'
+    updiv.style.transition='transform 0.5s ease'
+    // updiv.style.border='1px solid blue'
+    
+
+
+
+})
+
+updiv.addEventListener("mouseleave",function(e){
+
+    updiv.style.transform='scale(1)'
+    updiv.style.transition='transform 0.5s ease'
+    
+
+
+})
+
+let iconUp1=document.createElement("img")
+iconUp1.src="images/icon/fi-rr-caret-up.svg"
+iconUp1.style.width='30px'
+iconUp1.style.width='30px'
+
+iconUp1.id='iconUp'
+iconUp1.className='iconUp'
+iconUp1.style.cursor='pointer'
+iconUp1.style.marginLeft='3px'
+iconUp1.style.alignItems='centre'
+
+updiv.appendChild(iconUp1)
+
+
+let span1=document.createElement('span')
+span1.className='span1'
+span1.id='span1'
+span1.className='span1'
+span1.innerHTML='Up'
+span1.style.color='black'
+
+span1.style.fontSize='18px'
+
+span1.style.marginLeft='-17px'
+
+
+updiv.appendChild(span1)
+
+
+
+let input1=document.createElement('input')
+input1.className='input1'
+input1.id='input1'
+input1.style.border='none'
+input1.type='number'
+input1.style.width='39px'
+input1.style.height='33px'
+input1.value='0.5'
+input1.min='0'
+input1.max='5'
+input1.step = '1'; 
+input1.style.cursor='pointer'
+
+input1.style.color='black'
+
+input1.addEventListener('blur',function(){
+
+    input1.style.border='none'
+})
+
+
+
+
+
+
+
+updiv.appendChild(input1)
+
+
+
+
+//seccond DIV
+
+
+let downdiv=document.createElement("div")
+downdiv.className="downdiv"
+downdiv.id="downdiv"
+
+downdiv.style.width='100%'
+downdiv.style.height='100%'
+downdiv.style.borderBottom='2px solid #f7f2f6'
+// downdiv.style.backgroundColor='black'
+downdiv.style.display='grid'
+downdiv.style.gap='7px'
+downdiv.style.gridTemplateColumns='1fr auto 1fr'
+downdiv.style.alignItems='center'
+downdiv.style.gridRow='-8/-7a'
+downdiv.style.cursor='pointer'
+animationpanel.appendChild(downdiv)
+
+downdiv.addEventListener("mouseenter",function(e){
+
+    downdiv.style.transform='scale(0.94)'
+    downdiv.style.transition='transform 0.5s ease'
+    // downdiv.style.border='1px solid blue'
+    
+
+
+
+})
+
+downdiv.addEventListener("mouseleave",function(e){
+
+    downdiv.style.transform='scale(1)'
+    downdiv.style.transition='transform 0.5s ease'
+    
+
+
+})
+
+let icondown=document.createElement("img")
+icondown.src="images/icon/fi-rr-caret-down.svg"
+icondown.style.width='30px'
+icondown.style.width='30px'
+
+icondown.id='iconUp'
+icondown.className='iconUp'
+icondown.style.cursor='pointer'
+icondown.style.marginLeft='3px'
+icondown.style.alignItems='centre'
+
+downdiv.appendChild(icondown)
+
+
+let span2=document.createElement('span')
+span2.className='span2'
+span2.id='span2'
+span2.className='span2'
+span2.innerHTML='Down'
+span2.style.color='black'
+
+span2.style.fontSize='18px'
+
+span2.style.marginLeft='-17px'
+
+
+downdiv.appendChild(span2)
+
+
+
+let input2=document.createElement('input')
+input2.className='input2'
+input2.id='input2'
+input2.style.border='none'
+input2.type='number'
+input2.style.width='39px'
+input2.style.height='33px'
+input2.value='0.5'
+input2.min='0'
+input2.max='5'
+input2.step = '1'; 
+input2.style.cursor='pointer'
+
+input2.style.color='black'
+
+input2.addEventListener('blur',function(){
+
+    input2.style.border='none'
+})
+
+
+
+
+
+
+
+downdiv.appendChild(input2)
+
+
+
+//Right
+
+let rightdiv=document.createElement("div")
+rightdiv.className="rightdiv"
+rightdiv.id="rightdiv"
+
+rightdiv.style.width='100%'
+rightdiv.style.height='100%'
+rightdiv.style.borderBottom='2px solid #f7f2f6'
+// rightdiv.style.backgroundColor='black'
+rightdiv.style.display='grid'
+rightdiv.style.gap='7px'
+rightdiv.style.gridTemplateColumns='1fr auto 1fr'
+rightdiv.style.alignItems='center'
+rightdiv.style.gridRow='-8/-7a'
+rightdiv.style.cursor='pointer'
+animationpanel.appendChild(rightdiv)
+
+rightdiv.addEventListener("mouseenter",function(e){
+
+    rightdiv.style.transform='scale(0.94)'
+    rightdiv.style.transition='transform 0.5s ease'
+    // rightdiv.style.border='1px solid blue'
+    
+
+
+
+})
+
+rightdiv.addEventListener("mouseleave",function(e){
+
+    rightdiv.style.transform='scale(1)'
+    rightdiv.style.transition='transform 0.5s ease'
+    
+
+
+})
+
+let iconright=document.createElement("img")
+iconright.src="images/icon/fi-rr-caret-right.svg"
+iconright.style.width='30px'
+iconright.style.width='30px'
+
+iconright.id='iconUp'
+iconright.className='iconUp'
+iconright.style.cursor='pointer'
+iconright.style.marginLeft='3px'
+iconright.style.alignItems='centre'
+
+rightdiv.appendChild(iconright)
+
+
+let span3=document.createElement('span')
+span3.className='span3'
+span3.id='span3'
+span3.className='span3'
+span3.innerHTML='Right'
+span3.style.color='black'
+
+span3.style.fontSize='18px'
+
+span3.style.marginLeft='-17px'
+
+
+rightdiv.appendChild(span3)
+
+
+
+let input3=document.createElement('input')
+input3.className='input3'
+input3.id='input3'
+input3.style.border='none'
+input3.type='number'
+input3.style.width='39px'
+input3.style.height='33px'
+input3.value='0.5'
+input3.min='0'
+input3.max='5'
+input3.step = '1'; 
+input3.style.cursor='pointer'
+
+input3.style.color='black'
+
+input3.addEventListener('blur',function(){
+
+    input3.style.border='none'
+})
+
+
+
+
+
+
+
+rightdiv.appendChild(input3)
+
+
+
+
+
+//Left
+
+
+let rightleft=document.createElement("div")
+rightleft.className="rightleft"
+rightleft.id="rightleft"
+
+rightleft.style.width='100%'
+rightleft.style.height='100%'
+rightleft.style.borderBottom='2px solid #f7f2f6'
+// rightleft.style.backgroundColor='black'
+rightleft.style.display='grid'
+rightleft.style.gap='7px'
+rightleft.style.gridTemplateColumns='1fr auto 1fr'
+rightleft.style.alignItems='center'
+rightleft.style.gridRow='-8/-7a'
+rightleft.style.cursor='pointer'
+animationpanel.appendChild(rightleft)
+
+rightleft.addEventListener("mouseenter",function(e){
+
+    rightleft.style.transform='scale(0.94)'
+    rightleft.style.transition='transform 0.5s ease'
+    // rightleft.style.border='1px solid blue'
+    
+
+
+
+})
+
+rightleft.addEventListener("mouseleave",function(e){
+
+    rightleft.style.transform='scale(1)'
+    rightleft.style.transition='transform 0.5s ease'
+    
+
+
+})
+
+let iconLeft=document.createElement("img")
+iconLeft.src="images/icon/fi-rr-caret-left.svg"
+iconLeft.style.width='30px'
+iconLeft.style.width='30px'
+
+iconLeft.id='iconUp'
+iconLeft.className='iconUp'
+iconLeft.style.cursor='pointer'
+iconLeft.style.marginLeft='3px'
+iconLeft.style.alignItems='centre'
+
+rightleft.appendChild(iconLeft)
+
+
+let span4=document.createElement('span')
+span4.className='span4'
+span4.id='span4'
+span4.className='span4'
+span4.innerHTML='Left'
+span4.style.color='black'
+
+span4.style.fontSize='18px'
+
+span4.style.marginLeft='-17px'
+
+
+rightleft.appendChild(span4)
+
+
+
+let input4=document.createElement('input')
+input4.className='input4'
+input4.id='input4'
+input4.style.border='none'
+input4.type='number'
+input4.style.width='39px'
+input4.style.height='33px'
+input4.value='0.5'
+input4.min='0'
+input4.max='5'
+input4.step = '1'; 
+input4.style.cursor='pointer'
+
+input4.style.color='black'
+
+input4.addEventListener('blur',function(){
+
+    input4.style.border='none'
+})
+
+
+
+
+
+
+
+rightleft.appendChild(input4)
+
+
+
+
+
+
+document.addEventListener('click',function(e){
+
+ 
+e.preventDefault()
+animationpanel.style.transition='transform 0.6s ease-in-out'
+animationpanel.style.transform = 'translateX(100%)'; // Move it out of view
+
+if(!AnimationPanelMain.contains(e.target) &&( !animediv.contains(e.target) &&(!AnimationPanelMain1.contains(e.target))   )){
+
+     animationpanel.style.transition='transform 0.6s ease-in-out'
+    animationpanel.style.transform = 'translateX(100%)'; // Move it out of view
+
+    // Use a timeout to hide the panel after the transition ends
+    setTimeout(() => {
+        AnimationPanelMain.style.display = 'none'; // Hide the panel after the transition
+    }, 400); // Match the timeout duration with the transition duration
+}
+
+})

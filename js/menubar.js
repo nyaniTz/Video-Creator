@@ -49,5 +49,33 @@ animediv.addEventListener('mouseleave', function () {
     animationicon.src = 'images/icon/animation.png'; // Change back image on mouse leave
 });
 
+animediv.addEventListener('click',function(){
+    let AnimationPanelMain1=document.getElementById("AnimationPanelMain")
+    animationpanel.style.transform = 'translateX(100%)'; // Move it out of view
+animationpanel.style.transition = 'transform 0.3s ease';
+
+
+    
+    setTimeout(() => {
+        
+   
+
+
+
+        animationpanel.style.transform = 'translateX(0)'; // Move it out of view
+        animationpanel.style.transition='transform 0.6s ease-in-out'
+        AnimationPanelMain1.style.transition='transform 1s ease-in-out'
+ 
+ 
+     AnimationPanelMain1.style.display='block'
+     
+ 
+ 
+        
+    }, 500);
+
+ 
+})
+
 // Append the animediv to the mainBar
 mainBar.appendChild(animediv);
