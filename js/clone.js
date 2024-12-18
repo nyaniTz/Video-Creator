@@ -4,10 +4,18 @@ let activeElement = null; // Track the currently active element
 
 // Utility function to make elements draggable and resizable
 const makeDraggableAndResizable = (element) => {
+
+    const contenttext = document.querySelector(".clone");
     const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
     let isResizing = false, isDragging = false;
     let startX, startY, startWidth, startHeight, startTop, startLeft;
     let currentHandle;
+
+    let initialRect = element.getBoundingClientRect();
+    let initialWidth = initialRect.width;
+
+    let initialFontSize = parseInt(window.getComputedStyle(contenttext).fontSize, 10);
+
 
     const onMouseMove = (e) => {
         const dx = e.clientX - startX;
@@ -64,6 +72,12 @@ const makeDraggableAndResizable = (element) => {
                 element.style.height = `${newHeight}px`;
                 element.style.top = `${newTop}px`;
                 element.style.left = `${newLeft}px`;
+
+
+                const widthRatio = newWidth / initialWidth;
+                                const newFontSize = initialFontSize * widthRatio;
+                                contenttext.style.fontSize = newFontSize + "px";
+
             }
         }
     };
