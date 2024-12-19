@@ -117,7 +117,11 @@ const makeDraggableAndResizable = (element) => {
 // Duplicate and initialize functionality for new elements
 const duplicateElement = () => {
    let element = hoveredElement;
+
+   
    console.log("hovered element: ", element)
+
+
    const elementClassName = element.getAttribute("class");
    element = elementClassName == 'child' ? element.parentNode : element;
 
@@ -188,7 +192,7 @@ const duplicateElement = () => {
 
             hideResizeHandles(); // Hide the text box resize handles
             hidedivresizehandle(); // Hide the box resize handles
-            
+            showHandles(clone); // Show handles for the clicked clone
 
                 hideAllHandles(activeElement);
                 // if(element){
@@ -264,6 +268,7 @@ const showHandles = (element) => {
             handle.style.display = 'block'; // Show handles
         });
     }
+    
 };
 
 // Listen to mouseover event to track hovered element

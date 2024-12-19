@@ -1,6 +1,9 @@
 
+
+let IsselectedElement = null;
 thebackground=document.getElementById("background")
 let textBox1 = document.getElementById('text-box');
+// let mainBar=document.getElementById("mainBar")
 let textBoxhandle = textBox1.querySelectorAll('.resize-handle'); // Use class selector\
 
 let boxclass=document.querySelector(".box")
@@ -8,14 +11,17 @@ let thisdiv = box.querySelectorAll('[data-resize]');
 // let boxclone=document.querySelector("clone")
 
 // Function to show resize handles
-function showResizeHandles() {
-    textBoxhandle.forEach(function(div) {
+function showdivresizehandle(event) {
+    boxclass.style.border = '1px solid #081b2d';
+    thisdiv.forEach(function(div) {
         div.style.opacity = '1'; // Set opacity for each element
+        mainBar.style.display = 'grid';
 
-
-        div.style.margin = '4px'; // Set margin for each element
-
+       
     });
+
+    IsselectedElement = event.currentTarget; // Assign the current element
+    console.log("Selected Element:", IsselectedElement);
 }
 
 // Function to hide resize handles
@@ -26,12 +32,22 @@ function hideResizeHandles() {
     });
 }
 
-function showdivresizehandle(){
-    boxclass.style.border='1px solid #081b2d'
-    thisdiv.forEach(function(div) {
+function showResizeHandles(event) {
+
+
+    textBoxhandle.forEach(function(div) {
         div.style.opacity = '1'; // Set opacity for each element
+        div.style.margin = '4px'; // Set margin for each element
+        mainBar.style.display = 'grid';
+
+      
     });
+
+    IsselectedElement = event.currentTarget; // Assign the current element
+    console.log("Selected Element:", IsselectedElement);
 }
+
+
 
 function hidedivresizehandle(){
     boxclass.style.border='none'
@@ -46,7 +62,7 @@ textBox1.addEventListener('click', function(event) {
     event.stopPropagation(); // Prevent the click event from bubbling up to the document
     hidedivresizehandle(); // Hide the box resize handles
     hideAllHandles(activeElement);
-    showResizeHandles(); // Show the text box resize handles
+    showResizeHandles(event); // Show the text box resize handles
 });
 
 // Show resize handles when clicking on the box
@@ -54,7 +70,7 @@ boxclass.addEventListener('click', function(event) {
     event.stopPropagation();
     hideResizeHandles(); // Hide the text box resize handles
     hideAllHandles(activeElement);
-    showdivresizehandle(); // Show the box resize handles
+    showdivresizehandle(event); // Show the box resize handles
 });
 
 
@@ -70,6 +86,10 @@ document.addEventListener('click', function(e) {
         hideResizeHandles(); // Hide the text box resize handles
         hidedivresizehandle(); // Hide the box resize handles
         hideAllHandles(activeElement);
+
+
+        IsselectedElement = null; // Clear the selected element
+        console.log("No element selected");
         
     }
 });

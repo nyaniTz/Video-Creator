@@ -1158,4 +1158,7 @@ colorPicker1.addEventListener('blur', function () {
 //     }
 // });
 
+
+// console.log(selectedElement)
+
  

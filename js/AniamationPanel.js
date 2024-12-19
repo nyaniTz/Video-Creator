@@ -424,17 +424,381 @@ document.addEventListener('click',function(e){
  
 e.preventDefault()
 animationpanel.style.transition='transform 0.6s ease-in-out'
-animationpanel.style.transform = 'translateX(100%)'; // Move it out of view
 
-if(!AnimationPanelMain.contains(e.target) &&( !animediv.contains(e.target) &&(!AnimationPanelMain1.contains(e.target))   )){
+
+if(!AnimationPanelMain.contains(e.target) &&( !animediv.contains(e.target) &&(!AnimationPanelMain.contains(e.target))   )){
 
      animationpanel.style.transition='transform 0.6s ease-in-out'
     animationpanel.style.transform = 'translateX(100%)'; // Move it out of view
 
+
     // Use a timeout to hide the panel after the transition ends
     setTimeout(() => {
         AnimationPanelMain.style.display = 'none'; // Hide the panel after the transition
+        mainBar.style.display='none'
+
     }, 400); // Match the timeout duration with the transition duration
 }
 
 })
+
+
+
+let input11 = document.getElementById('input1'); // Assuming input1 already exists in your HTML
+
+updiv.addEventListener('click', function() {
+
+    updiv.style.border='2px solid rgb(232, 211, 228)'
+
+    
+     
+
+     rightleft.style.border='none'
+     downdiv.style.border='none'
+     rightdiv.style.border='none'
+
+
+    if (IsselectedElement) {
+        // Get the value from input1 to determine the transition duration
+        let transitionDuration = parseFloat(input11.value); // Get the value as a float
+        transitionDuration = isNaN(transitionDuration) ? 0.5 : transitionDuration; // Default to 0.5s if not valid
+
+        // Reset the element's transform and transition before applying the animation
+        IsselectedElement.style.transition = "none"; // Disable transition to reset
+        IsselectedElement.style.transform = "translateY(50px)"; // Set to below position
+    
+        // Trigger reflow to ensure the browser applies the reset styles
+        void IsselectedElement.offsetHeight;
+    
+        IsselectedElement.style.opacity = '0.4';
+        // Apply the upward animation to the original position with dynamic transition duration
+        IsselectedElement.style.transition = `transform ${transitionDuration}s ease`; // Set dynamic transition time
+        IsselectedElement.style.transform = "translateY(0)"; // Move to original position
+        
+        setTimeout(() => {
+            IsselectedElement.style.opacity = '1';
+            IsselectedElement.style.transition = `opacity ${transitionDuration}s ease, visibility ${transitionDuration}s ease`; // Set dynamic opacity transition time
+        }, transitionDuration * 1000); // Multiply by 1000 to convert to milliseconds
+    } else {
+        console.log("No element selected for animation.");
+    }
+});
+
+
+updiv.addEventListener("mouseenter", function () {
+    updiv.addEventListener("mouseenter", function () {
+        if (IsselectedElement) {
+            // Get the value from input1 to determine the transition duration
+            let transitionDuration = parseFloat(input1.value); // Get the value as a float
+            transitionDuration = isNaN(transitionDuration) ? 0.5 : transitionDuration; // Default to 0.5s if not valid
+    
+            // Reset the element's transform and transition before applying the animation
+            IsselectedElement.style.transition = "none"; // Disable transition to reset
+            IsselectedElement.style.transform = "translateY(50px)"; // Set to below position
+    
+            // Trigger reflow to ensure the browser applies the reset styles
+            void IsselectedElement.offsetHeight;
+    
+            IsselectedElement.style.opacity = '0.4';
+    
+            // Apply the upward animation to the original position with dynamic transition duration
+            IsselectedElement.style.transition = `transform ${transitionDuration}s ease`; // Set dynamic transition time
+            IsselectedElement.style.transform = "translateY(0)"; // Move to original position
+    
+            setTimeout(() => {
+                IsselectedElement.style.opacity = '1';
+                IsselectedElement.style.transition = `opacity ${transitionDuration}s ease, visibility ${transitionDuration}s ease`; // Set dynamic opacity transition time
+            }, transitionDuration * 1000); // Multiply by 1000 to convert to milliseconds
+        }
+    });
+    
+});
+
+updiv.addEventListener("mousemove", function (event) {
+    // Do nothing to prevent repeated actions while inside the div
+    event.stopPropagation();
+});
+
+
+
+updiv.addEventListener("mouseleave", function () {
+    if (IsselectedElement) {
+  
+      
+      
+        IsselectedElement.style.transition = "transform 0.5s ease"; // Re-enable transition
+        IsselectedElement.style.transform = "translateY(0)"; // Move to original position
+        
+      
+
+    } 
+    
+});
+
+
+
+//down
+let input22 = document.getElementById("input2");
+
+downdiv.addEventListener("click", function () {
+    downdiv.style.border='2px solid rgb(232, 211, 228)'
+
+    updiv.style.border='none'
+   
+    rightleft.style.border='none'
+    rightdiv.style.border='none'
+
+
+    if (IsselectedElement) {
+        // Get the value from input22 to determine the transition duration
+        let transitionDuration = parseFloat(input22.value); // Get the value as a float
+        transitionDuration = isNaN(transitionDuration) ? 0.5 : transitionDuration; // Default to 0.5s if not valid
+
+        // Reset the element's transform and transition before applying the animation
+        IsselectedElement.style.transition = "none"; // Disable transition to reset
+        IsselectedElement.style.transform = "translateY(-50px)"; // Set to above position
+    
+        // Trigger reflow to ensure the browser applies the reset styles
+        void IsselectedElement.offsetHeight;
+    
+        IsselectedElement.style.opacity = '0.4';
+
+        // Apply the downward animation to the original position with dynamic transition duration
+        IsselectedElement.style.transition = `transform ${transitionDuration}s ease`; // Set dynamic transition time
+        IsselectedElement.style.transform = "translateY(0)"; // Move to original position
+        
+        setTimeout(() => {
+            IsselectedElement.style.opacity = '1';
+            IsselectedElement.style.transition = `opacity ${transitionDuration}s ease, visibility ${transitionDuration}s ease`; // Set dynamic opacity transition time
+        }, transitionDuration * 1000); // Convert to milliseconds
+    } else {
+        console.log("No element selected for animation.");
+    }
+});
+
+downdiv.addEventListener("mouseenter", function () {
+    if (IsselectedElement) {
+
+
+        // Get the value from input22 to determine the transition duration
+        let transitionDuration = parseFloat(input22.value); // Get the value as a float
+        transitionDuration = isNaN(transitionDuration) ? 0.5 : transitionDuration; // Default to 0.5s if not valid
+
+        // Reset the element's transform and transition before applying the animation
+        IsselectedElement.style.transition = "none"; // Disable transition to reset
+        IsselectedElement.style.transform = "translateY(-50px)"; // Set to above position
+
+        // Trigger reflow to ensure the browser applies the reset styles
+        void IsselectedElement.offsetHeight;
+
+        IsselectedElement.style.opacity = '0.4';
+
+        // Apply the downward animation to the original position with dynamic transition duration
+        IsselectedElement.style.transition = `transform ${transitionDuration}s ease`; // Set dynamic transition time
+        IsselectedElement.style.transform = "translateY(0)"; // Move to original position
+
+        setTimeout(() => {
+            IsselectedElement.style.opacity = '1';
+            IsselectedElement.style.transition = `opacity ${transitionDuration}s ease, visibility ${transitionDuration}s ease`; // Set dynamic opacity transition time
+        }, transitionDuration * 1000); // Convert to milliseconds
+    }
+});
+
+
+downdiv.addEventListener("mousemove", function (event) {
+    // Do nothing to prevent repeated actions while inside the div
+    event.stopPropagation();
+});
+
+
+
+downdiv.addEventListener("mouseleave", function () {
+    if (IsselectedElement) {
+  
+      
+      
+        IsselectedElement.style.transition = "transform 0.5s ease"; // Re-enable transition
+        IsselectedElement.style.transform = "translateY(0)"; // Move to original position
+        
+      
+
+    } 
+    
+});
+
+
+
+
+
+//TransitionX
+let input33 = document.getElementById("input3");
+
+rightdiv.addEventListener("click", function () {
+
+    rightdiv.style.border='2px solid rgb(232, 211, 228)'
+
+    updiv.style.border='none'
+    downdiv.style.border='none'
+    rightleft.style.border='none'
+
+
+    
+    if (IsselectedElement) {
+        // Get the value from input33 to determine the transition duration
+        let transitionDuration = parseFloat(input33.value); // Get the value as a float
+        transitionDuration = isNaN(transitionDuration) ? 0.5 : transitionDuration; // Default to 0.5s if not valid
+
+        // Reset the element's transform and transition before applying the animation
+        IsselectedElement.style.transition = "none"; // Disable transition to reset
+        IsselectedElement.style.transform = "translateX(-50px)"; // Set to left position
+    
+        // Trigger reflow to ensure the browser applies the reset styles
+        void IsselectedElement.offsetHeight;
+    
+        IsselectedElement.style.opacity = '0.4';
+
+        // Apply the rightward animation to the original position
+        IsselectedElement.style.transition = `transform ${transitionDuration}s ease`; // Set dynamic transition time
+        IsselectedElement.style.transform = "translateX(0)"; // Move to original position
+        
+        setTimeout(() => {
+            IsselectedElement.style.opacity = '1';
+            IsselectedElement.style.transition = `opacity ${transitionDuration}s ease, visibility ${transitionDuration}s ease`; // Set dynamic opacity transition time
+        }, transitionDuration * 1000); // Convert to milliseconds
+    } else {
+        console.log("No element selected for animation.");
+    }
+});
+
+rightdiv.addEventListener("mouseenter", function () {
+    if (IsselectedElement) {
+        // Get the value from input33 to determine the transition duration
+        let transitionDuration = parseFloat(input33.value); // Get the value as a float
+        transitionDuration = isNaN(transitionDuration) ? 0.5 : transitionDuration; // Default to 0.5s if not valid
+
+        // Reset the element's transform and transition before applying the animation
+        IsselectedElement.style.transition = "none"; // Disable transition to reset
+        IsselectedElement.style.transform = "translateX(-50px)"; // Set to left position
+
+        // Trigger reflow to ensure the browser applies the reset styles
+        void IsselectedElement.offsetHeight;
+
+        IsselectedElement.style.opacity = '0.4';
+
+        // Apply the rightward animation to the original position
+        IsselectedElement.style.transition = `transform ${transitionDuration}s ease`; // Set dynamic transition time
+        IsselectedElement.style.transform = "translateX(0)"; // Move to original position
+
+        setTimeout(() => {
+            IsselectedElement.style.opacity = '1';
+            IsselectedElement.style.transition = `opacity ${transitionDuration}s ease, visibility ${transitionDuration}s ease`; // Set dynamic opacity transition time
+        }, transitionDuration * 1000); // Convert to milliseconds
+    }
+});
+
+
+rightdiv.addEventListener("mousemove", function (event) {
+    // Do nothing to prevent repeated actions while inside the div
+    event.stopPropagation();
+});
+
+
+
+rightdiv.addEventListener("mouseleave", function () {
+    if (IsselectedElement) {
+  
+      
+      
+        IsselectedElement.style.transition = "transform 0.5s ease"; // Re-enable transition
+        IsselectedElement.style.transform = "translateX(0)"; // Move to original position
+        
+      
+
+    } 
+    
+});
+
+let input44 = document.getElementById("input4");
+
+rightleft.addEventListener("click", function () {
+    rightleft.style.border='2px solid rgb(232, 211, 228)'
+
+    updiv.style.border='none'
+    downdiv.style.border='none'
+    rightdiv.style.border='none'
+
+    if (IsselectedElement) {
+        // Get the value from input44 to determine the transition duration
+        let transitionDuration = parseFloat(input44.value); // Get the value as a float
+        transitionDuration = isNaN(transitionDuration) ? 0.5 : transitionDuration; // Default to 0.5s if not valid
+
+        // Reset the element's transform and transition before applying the animation
+        IsselectedElement.style.transition = "none"; // Disable transition to reset
+        IsselectedElement.style.transform = "translateX(50px)"; // Set to right position
+    
+        // Trigger reflow to ensure the browser applies the reset styles
+        void IsselectedElement.offsetHeight;
+    
+        IsselectedElement.style.opacity = '0.4';
+
+        // Apply the leftward animation to the original position
+        IsselectedElement.style.transition = `transform ${transitionDuration}s ease`; // Set dynamic transition time
+        IsselectedElement.style.transform = "translateX(0)"; // Move to original position
+        
+        setTimeout(() => {
+            IsselectedElement.style.opacity = '1';
+            IsselectedElement.style.transition = `opacity ${transitionDuration}s ease, visibility ${transitionDuration}s ease`; // Set dynamic opacity transition time
+        }, transitionDuration * 1000); // Convert to milliseconds
+    } else {
+        console.log("No element selected for animation.");
+    }
+});
+
+rightleft.addEventListener("mouseenter", function () {
+    if (IsselectedElement) {
+        // Get the value from input44 to determine the transition duration
+        let transitionDuration = parseFloat(input44.value); // Get the value as a float
+        transitionDuration = isNaN(transitionDuration) ? 0.5 : transitionDuration; // Default to 0.5s if not valid
+
+        // Reset the element's transform and transition before applying the animation
+        IsselectedElement.style.transition = "none"; // Disable transition to reset
+        IsselectedElement.style.transform = "translateX(50px)"; // Set to right position
+
+        // Trigger reflow to ensure the browser applies the reset styles
+        void IsselectedElement.offsetHeight;
+
+        IsselectedElement.style.opacity = '0.4';
+
+        // Apply the leftward animation to the original position
+        IsselectedElement.style.transition = `transform ${transitionDuration}s ease`; // Set dynamic transition time
+        IsselectedElement.style.transform = "translateX(0)"; // Move to original position
+
+        setTimeout(() => {
+            IsselectedElement.style.opacity = '1';
+            IsselectedElement.style.transition = `opacity ${transitionDuration}s ease, visibility ${transitionDuration}s ease`; // Set dynamic opacity transition time
+        }, transitionDuration * 1000); // Convert to milliseconds
+    }
+});
+
+
+rightleft.addEventListener("mousemove", function (event) {
+    // Do nothing to prevent repeated actions while inside the div
+    event.stopPropagation();
+});
+
+
+
+rightleft.addEventListener("mouseleave", function () {
+    if (IsselectedElement) {
+  
+      
+      
+        IsselectedElement.style.transition = "transform 0.5s ease"; // Re-enable transition
+        IsselectedElement.style.transform = "translateX(0)"; // Move to original position
+        
+      
+
+    } 
+    
+});
+
