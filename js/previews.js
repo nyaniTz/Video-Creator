@@ -1,4 +1,9 @@
 document.getElementById("previewbutton").addEventListener("click", function () {
+
+    // let preview=document.getElementById("previewbutton")
+
+    speakText();
+
     console.log("Preview started!");
 
     // Loop through all stored animation settings
@@ -20,4 +25,14 @@ document.getElementById("previewbutton").addEventListener("click", function () {
             element.style.opacity = '1';
         }, 100); // Small delay to ensure reset styles are applied
     }
+
+    //     if (background.requestFullscreen) {
+    //         background.requestFullscreen();
+    //     } else if (background.webkitRequestFullscreen) { // For Safari compatibility
+    //         background.webkitRequestFullscreen();
+    //     } else if (background.msRequestFullscreen) { // For IE11 compatibility
+    //         background.msRequestFullscreen();
+      
+    // }
 });
+

@@ -429,8 +429,9 @@ document.addEventListener('click',function(e){
 e.preventDefault()
 animationpanel.style.transition='transform 0.6s ease-in-out'
 
+let previewbutton=document.getElementById("previewbutton")
 
-if(!AnimationPanelMain.contains(e.target) &&( !animediv.contains(e.target) &&(!AnimationPanelMain.contains(e.target))   )){
+if(!AnimationPanelMain.contains(e.target) &&( !animediv.contains(e.target) &&(!AnimationPanelMain.contains(e.target)) && (!preview.contains(e.target))  )){
 
      animationpanel.style.transition='transform 0.6s ease-in-out'
     animationpanel.style.transform = 'translateX(100%)'; // Move it out of view
@@ -458,6 +459,7 @@ const animationSettings = {};
 // Function to handle element selection
 function selectElement(element) {
     IsselectedElement = element;
+    
 
     
     // Get the stored timer for the selected element or default to 0.5 seconds
