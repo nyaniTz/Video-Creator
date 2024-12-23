@@ -16,12 +16,31 @@ function showdivresizehandle(event) {
     thisdiv.forEach(function(div) {
         div.style.opacity = '1'; // Set opacity for each element
         mainBar.style.display = 'grid';
+        ScriptDiv.style.display='none'
+        Scriptplay.style.display='none'
 
        
     });
 
     IsselectedElement = event.currentTarget; // Assign the current element
     console.log("Selected Element:", IsselectedElement);
+
+
+    if (!animationSettings[IsselectedElement.id]) {
+        // Element has not been saved yet, clear borders and set default value in input
+        updiv.style.border = 'none';
+        rightleft.style.border = 'none';
+        downdiv.style.border = 'none';
+        rightdiv.style.border = 'none';
+        input11.value = "0.5"; // Set default timer value
+        console.log("This element hasn't been saved yet. Default settings applied.");
+    } else {
+        // Element has already been saved, set the timer value from settings
+        const savedTimer = animationSettings[IsselectedElement.id].timer;
+        input11.value = savedTimer; // Set the input value to the saved timer
+        console.log("This element has already been saved. Timer set to " + savedTimer);
+    }
+    
 }
 
 // Function to hide resize handles
@@ -39,12 +58,37 @@ function showResizeHandles(event) {
         div.style.opacity = '1'; // Set opacity for each element
         div.style.margin = '4px'; // Set margin for each element
         mainBar.style.display = 'grid';
-
+         ScriptDiv.style.display='none'
+         Scriptplay.style.display='none'
       
     });
 
     IsselectedElement = event.currentTarget; // Assign the current element
     console.log("Selected Element:", IsselectedElement);
+
+
+    if (!animationSettings[IsselectedElement.id]) {
+        // Element has not been saved yet, clear borders and set default value in input
+
+        
+        updiv.style.border = 'none';
+        rightleft.style.border = 'none';
+        downdiv.style.border = 'none';
+        rightdiv.style.border = 'none';
+        input11.value = "0.5"; // Set default timer value
+        console.log("This element hasn't been saved yet. Default settings applied.");
+    } else {
+        updiv.style.border = '2px solid rgb(232, 211, 228)';
+        rightleft.style.border = 'none';
+        downdiv.style.border = 'none';
+        rightdiv.style.border = 'none';
+        
+        // Element has already been saved, set the timer value from settings
+        const savedTimer = animationSettings[IsselectedElement.id].timer;
+        input11.value = savedTimer; // Set the input value to the saved timer
+        console.log("This element has already been saved. Timer set to " + savedTimer);
+    }
+    
 }
 
 
@@ -93,3 +137,7 @@ document.addEventListener('click', function(e) {
         
     }
 });
+
+
+
+

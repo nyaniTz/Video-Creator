@@ -137,6 +137,10 @@ const duplicateElement = () => {
 
         makeDraggableAndResizable(clone ); // Reinitialize draggable and resizable functionality
 
+
+        IsselectedElement = clone;
+
+
         // Add 8 resizing handles dynamically if not present
         const directions = ['nw', 'ne', 'sw', 'se', 'n', 'e', 's', 'w'];
         directions.forEach((direction) => {
@@ -210,6 +214,7 @@ const duplicateElement = () => {
             // const handles = clone.querySelectorAll('.dataresize');
             // handles.forEach(handle => handle.style.display = 'block');
             // hideResizeHandles()
+            hoveredElement = clone;
         });
 
         clone.addEventListener('mouseleave', () => {
@@ -225,9 +230,10 @@ const duplicateElement = () => {
             hideResizeHandles(); // Hide the text box resize handles
             hidedivresizehandle(); // Hide the box resize handles
 
-            
-
-            
+            mainBar.style.display = 'grid';
+             ScriptDiv.style.display='none'
+             Scriptplay.style.display='none'
+            IsselectedElement = activeElement;
             
             if (activeElement && activeElement !== clone) {
                 hideAllHandles(activeElement); // Hide handles of the previously active element
@@ -322,3 +328,4 @@ const undoLastAction = () => {
         }
     }
 };
+

@@ -1,4 +1,6 @@
+class AnimationController {
 
+}
 
 let AnimationPanelMain=document.getElementById("AnimationPanelMain")
 const animationpanel=document.createElement("div")
@@ -8,8 +10,9 @@ animationpanel.id="animationpanel"
 animationpanel.style.color="white"
 
 animationpanel.style.boxShadow = '1px 8px 24px 0px rgb(217, 218, 226)'
-animationpanel.style.width="100%"
+animationpanel.style.width="90%"
 animationpanel.style.height='100%'
+animationpanel.style.borderRadius='13px'
 animationpanel.style.alignItems='top'
 animationpanel.style.display='grid'
 animationpanel.style.gridTemplateRows='repeat(8, 1fr )'
@@ -59,8 +62,8 @@ updiv.addEventListener("mouseleave",function(e){
 
 let iconUp1=document.createElement("img")
 iconUp1.src="images/icon/fi-rr-caret-up.svg"
-iconUp1.style.width='30px'
-iconUp1.style.width='30px'
+iconUp1.style.width='25px'
+iconUp1.style.width='25px'
 
 iconUp1.id='iconUp'
 iconUp1.className='iconUp'
@@ -78,7 +81,7 @@ span1.className='span1'
 span1.innerHTML='Up'
 span1.style.color='black'
 
-span1.style.fontSize='18px'
+span1.style.fontSize='13px'
 
 span1.style.marginLeft='-17px'
 
@@ -159,8 +162,8 @@ downdiv.addEventListener("mouseleave",function(e){
 
 let icondown=document.createElement("img")
 icondown.src="images/icon/fi-rr-caret-down.svg"
-icondown.style.width='30px'
-icondown.style.width='30px'
+icondown.style.width='25px'
+icondown.style.width='25px'
 
 icondown.id='iconUp'
 icondown.className='iconUp'
@@ -177,10 +180,11 @@ span2.id='span2'
 span2.className='span2'
 span2.innerHTML='Down'
 span2.style.color='black'
+span2.style.fontSize='13px'
 
-span2.style.fontSize='18px'
+// span2.style.fontSize='18px'
 
-span2.style.marginLeft='-17px'
+span2.style.marginLeft='-14px'
 
 
 downdiv.appendChild(span2)
@@ -257,8 +261,8 @@ rightdiv.addEventListener("mouseleave",function(e){
 
 let iconright=document.createElement("img")
 iconright.src="images/icon/fi-rr-caret-right.svg"
-iconright.style.width='30px'
-iconright.style.width='30px'
+iconright.style.width='25px'
+iconright.style.width='25px'
 
 iconright.id='iconUp'
 iconright.className='iconUp'
@@ -276,7 +280,7 @@ span3.className='span3'
 span3.innerHTML='Right'
 span3.style.color='black'
 
-span3.style.fontSize='18px'
+span3.style.fontSize='13px'
 
 span3.style.marginLeft='-17px'
 
@@ -358,8 +362,8 @@ rightleft.addEventListener("mouseleave",function(e){
 
 let iconLeft=document.createElement("img")
 iconLeft.src="images/icon/fi-rr-caret-left.svg"
-iconLeft.style.width='30px'
-iconLeft.style.width='30px'
+iconLeft.style.width='25px'
+iconLeft.style.width='25px'
 
 iconLeft.id='iconUp'
 iconLeft.className='iconUp'
@@ -377,7 +381,7 @@ span4.className='span4'
 span4.innerHTML='Left'
 span4.style.color='black'
 
-span4.style.fontSize='18px'
+span4.style.fontSize='13px'
 
 span4.style.marginLeft='-17px'
 
@@ -444,96 +448,79 @@ if(!AnimationPanelMain.contains(e.target) &&( !animediv.contains(e.target) &&(!A
 
 
 
-let input11 = document.getElementById('input1'); // Assuming input1 already exists in your HTML
 
-updiv.addEventListener('click', function() {
 
-    updiv.style.border='2px solid rgb(232, 211, 228)'
+let input11=document.getElementById("input1")
+
+// Object to store animation settings for each element
+const animationSettings = {};
+
+// Function to handle element selection
+function selectElement(element) {
+    IsselectedElement = element;
 
     
-     
+    // Get the stored timer for the selected element or default to 0.5 seconds
+    const timer = animationSettings[element.id]?.timer || 0.5;
 
-     rightleft.style.border='none'
-     downdiv.style.border='none'
-     rightdiv.style.border='none'
+    // Update the timer input to show the stored value
+    input11.value = timer;
+}
 
+// Handle the "Up" button click
+updiv.addEventListener('click', function () {
+    updiv.style.border = '2px solid rgb(232, 211, 228)';
+    rightleft.style.border = 'none';
+    downdiv.style.border = 'none';
+    rightdiv.style.border = 'none';
 
     if (IsselectedElement) {
         // Get the value from input1 to determine the transition duration
-        let transitionDuration = parseFloat(input11.value); // Get the value as a float
-        transitionDuration = isNaN(transitionDuration) ? 0.5 : transitionDuration; // Default to 0.5s if not valid
+        let transitionDuration = parseFloat(input11.value);
+        transitionDuration = isNaN(transitionDuration) ? 0.5 : transitionDuration;
+
+        // Save the timer value to the animationSettings object for the selected element
+        animationSettings[IsselectedElement.id] = {
+            element: IsselectedElement,
+            timer: transitionDuration,
+        };
+
+        
 
         // Reset the element's transform and transition before applying the animation
-        IsselectedElement.style.transition = "none"; // Disable transition to reset
+        IsselectedElement.style.transition = "none";
         IsselectedElement.style.transform = "translateY(50px)"; // Set to below position
-    
+
         // Trigger reflow to ensure the browser applies the reset styles
         void IsselectedElement.offsetHeight;
-    
+
         IsselectedElement.style.opacity = '0.4';
-        // Apply the upward animation to the original position with dynamic transition duration
-        IsselectedElement.style.transition = `transform ${transitionDuration}s ease`; // Set dynamic transition time
-        IsselectedElement.style.transform = "translateY(0)"; // Move to original position
-        
+
+        // Apply the upward animation to the original position
+        IsselectedElement.style.transition = `transform ${transitionDuration}s ease`;
+        IsselectedElement.style.transform = "translateY(0)";
+
         setTimeout(() => {
             IsselectedElement.style.opacity = '1';
-            IsselectedElement.style.transition = `opacity ${transitionDuration}s ease, visibility ${transitionDuration}s ease`; // Set dynamic opacity transition time
-        }, transitionDuration * 1000); // Multiply by 1000 to convert to milliseconds
+            IsselectedElement.style.transition = `opacity ${transitionDuration}s ease, visibility ${transitionDuration}s ease`;
+        }, transitionDuration * 1000);
     } else {
         console.log("No element selected for animation.");
     }
 });
 
-
-updiv.addEventListener("mouseenter", function () {
-    updiv.addEventListener("mouseenter", function () {
-        if (IsselectedElement) {
-            // Get the value from input1 to determine the transition duration
-            let transitionDuration = parseFloat(input1.value); // Get the value as a float
-            transitionDuration = isNaN(transitionDuration) ? 0.5 : transitionDuration; // Default to 0.5s if not valid
-    
-            // Reset the element's transform and transition before applying the animation
-            IsselectedElement.style.transition = "none"; // Disable transition to reset
-            IsselectedElement.style.transform = "translateY(50px)"; // Set to below position
-    
-            // Trigger reflow to ensure the browser applies the reset styles
-            void IsselectedElement.offsetHeight;
-    
-            IsselectedElement.style.opacity = '0.4';
-    
-            // Apply the upward animation to the original position with dynamic transition duration
-            IsselectedElement.style.transition = `transform ${transitionDuration}s ease`; // Set dynamic transition time
-            IsselectedElement.style.transform = "translateY(0)"; // Move to original position
-    
-            setTimeout(() => {
-                IsselectedElement.style.opacity = '1';
-                IsselectedElement.style.transition = `opacity ${transitionDuration}s ease, visibility ${transitionDuration}s ease`; // Set dynamic opacity transition time
-            }, transitionDuration * 1000); // Multiply by 1000 to convert to milliseconds
-        }
-    });
-    
-});
-
-updiv.addEventListener("mousemove", function (event) {
-    // Do nothing to prevent repeated actions while inside the div
-    event.stopPropagation();
-});
-
-
-
-updiv.addEventListener("mouseleave", function () {
+// Update timer value dynamically when an element is selected
+input11.addEventListener('input', function () {
     if (IsselectedElement) {
-  
-      
-      
-        IsselectedElement.style.transition = "transform 0.5s ease"; // Re-enable transition
-        IsselectedElement.style.transform = "translateY(0)"; // Move to original position
-        
-      
-
-    } 
-    
+        // Save the new timer value for the selected element
+        const newTimer = parseFloat(input11.value) || 0.5;
+        animationSettings[IsselectedElement.id].timer = newTimer;
+    }
 });
+
+
+
+
 
 
 
