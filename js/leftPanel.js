@@ -44,8 +44,8 @@ leftPanel.appendChild(divscript)
 
 let ScriptIcon=document.createElement("img")
 ScriptIcon.src="images/icon/fi-rr-notebook.svg"
-ScriptIcon.style.width='25px'
-ScriptIcon.style.width='25px'
+ScriptIcon.style.width='20px'
+ScriptIcon.style.width='20px'
 
 
 ScriptIcon.id='ScriptIcon'
@@ -65,8 +65,8 @@ scriptSpan.className='scriptSpan'
 scriptSpan.innerHTML='Script'
 scriptSpan.style.color='black'
 
-scriptSpan.style.fontSize='13px'
-scriptSpan.style.marginLeft='8px'
+scriptSpan.style.fontSize='10px'
+scriptSpan.style.marginLeft='10px'
 scriptSpan.style.marginTop='-25px'
 
 
@@ -96,6 +96,16 @@ setTimeout(()=>{
     
 
 })
+
+
+
+
+
+
+
+
+
+
 document.addEventListener('click',function(event){
 
     if(!divscript.contains(event.target) && (!ScriptDiv.contains(event.target) && (!Scriptplay.contains(event.target)))){
@@ -120,3 +130,23 @@ Scriptplay.style.display='grid'
 
 
 })
+
+
+
+
+
+        ScriptIcon.addEventListener('mouseover',function(){
+
+            ScriptIcon.style.transform='scale(0.8)'
+            scriptSpan.style.transform='scale(0.9)'
+            ScriptIcon.style.transition='transform 0.4s ease'
+
+          })
+
+          ScriptIcon.addEventListener('mouseout',function(){
+
+            ScriptIcon.style.transform='scale(1)'
+             scriptSpan.style.transform='scale(1)'
+            ScriptIcon.style.transition='transform 0.4s ease'
+
+            })

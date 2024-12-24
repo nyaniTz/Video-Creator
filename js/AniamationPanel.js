@@ -99,7 +99,7 @@ input1.style.width='39px'
 input1.style.height='33px'
 input1.value='0.5'
 input1.min='0'
-input1.max='5'
+input1.max='10'
 input1.step = '1'; 
 input1.style.cursor='pointer'
 
@@ -200,7 +200,7 @@ input2.style.width='39px'
 input2.style.height='33px'
 input2.value='0.5'
 input2.min='0'
-input2.max='5'
+input2.max='10'
 input2.step = '1'; 
 input2.style.cursor='pointer'
 
@@ -298,7 +298,7 @@ input3.style.width='39px'
 input3.style.height='33px'
 input3.value='0.5'
 input3.min='0'
-input3.max='5'
+input3.max='10'
 input3.step = '1'; 
 input3.style.cursor='pointer'
 
@@ -399,7 +399,7 @@ input4.style.width='39px'
 input4.style.height='33px'
 input4.value='0.5'
 input4.min='0'
-input4.max='5'
+input4.max='10'
 input4.step = '1'; 
 input4.style.cursor='pointer'
 
@@ -796,3 +796,18 @@ rightleft.addEventListener("mouseleave", function () {
     
 });
 
+previewbutton.addEventListener('mouseover',function(){
+
+    previewbutton.style.transform='scale(0.8)'
+  
+    previewbutton.style.transition='transform 0.4s ease'
+
+  })
+
+  previewbutton.addEventListener('mouseout',function(){
+
+    previewbutton.style.transform='scale(1)'
+  
+    previewbutton.style.transition='transform 0.4s ease'
+
+    })

@@ -14,6 +14,8 @@
             let speakTextDiv=document.getElementById("ScriptDiv").innerHTML.trim()
             if(speakTextDiv !==""){
 
+                speakTextDiv.innerHTML="please click script icon on left pannel and inset text for this scene"
+
                 var text = document.getElementById('ScriptDiv').innerText;
                 var language = detectLanguage(text);
     
@@ -25,7 +27,7 @@
                 }
             }
             else{
-                console.log("vyjvvv")
+                // console.log("vyjvvv")
             }
            
         }
@@ -34,3 +36,22 @@
             speakText();
         });
   
+
+
+        let Scriptplay=document.getElementById("Scriptplay")
+
+
+        Scriptplay.addEventListener('mouseover',function(){
+
+            Scriptplay.style.transform='scale(0.8)'
+            Scriptplay.style.transition='transform 0.4s ease'
+
+          })
+
+          Scriptplay.addEventListener('mouseout',function(){
+
+            Scriptplay.style.transform='scale(1)'
+            Scriptplay.style.transition='transform 0.4s ease'
+
+            })
+       

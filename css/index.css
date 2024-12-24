@@ -107,13 +107,13 @@ box-shadow: 8px -7px 24px -20px rgba(66, 68, 90, 1);
          gap: 1px;
          align-items: center;
 
-         top:12%;
+         top:11%;
         
         border:none;
             display:none;
 
          width:2.2%;
-         height: 11vh;
+         height: 8vh;
       
          z-index: 9999;
 
@@ -123,6 +123,9 @@ box-shadow: 8px -7px 24px -20px rgba(66, 68, 90, 1);
             
             overflow:auto;
 
+        }
+        .Scriptplay:hover{
+            background-color: #ffffff;
         }
         .AnimationPanelMain{
 
@@ -161,7 +164,30 @@ box-shadow: 8px -7px 24px -20px rgba(66, 68, 90, 1);
             
 
         }
+        .preview{
 
+            display: grid;
+            gap: 1px;
+            align-items: center;
+            background-color: #ffffff;
+            /* grid-template-rows: repeat(6, 1fr); */
+            width: 70%;
+            height: 6.5vh;
+            z-index: 9999;
+            position: fixed; /* Fixed positioning */
+            left: 20%; /* Align to the right */
+            top: 92%; /* Optional: adjust vertical position */
+            border-radius: 14px;
+            -webkit-box-shadow: 8px 8px 24px -13px rgba(66, 68, 90, 1);
+            -moz-box-shadow: 8px 8px 24px -13px rgba(66, 68, 90, 1);
+            box-shadow: 8px 8px 24px -13px rgba(66, 68, 90, 1);
+            cursor: pointer;
+
+
+        }
+        .previewbutton{
+           border: 1px solid 8px 8px 24px -13px rgba(66, 68, 90, 1);;
+        }
         .input1,.input2,.input3,.input4:focus{
             border:none;
             outline: none;
