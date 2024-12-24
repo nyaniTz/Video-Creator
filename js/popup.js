@@ -1107,6 +1107,7 @@ secondpopup.addEventListener('mouseleave', function (e) {
        popup.style.opacity=0.2
 
         colorPicker.click();
+        console.log("sdfffffffff")
         setTimeout(()=>{
             
             popup.style.display='none'

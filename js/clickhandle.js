@@ -25,21 +25,73 @@ function showdivresizehandle(event) {
     IsselectedElement = event.currentTarget; // Assign the current element
     console.log("Selected Element:", IsselectedElement);
 
-
     if (!animationSettings[IsselectedElement.id]) {
-        // Element has not been saved yet, clear borders and set default value in input
+        // Element has not been saved yet, clear borders and set default value in inputs
         updiv.style.border = 'none';
         rightleft.style.border = 'none';
         downdiv.style.border = 'none';
         rightdiv.style.border = 'none';
-        input11.value = "0.5"; // Set default timer value
-        console.log("This element hasn't been saved yet. Default settings applied.");
+    
+        input11.value = "0.5"; // Default timer for "up"
+        input22.value = "0.5"; // Default timer for "down"
+        input33.value = "0.5"; // Default timer for "right"
+        input44.value = "0.5"; // Default timer for "down"
+       
     } else {
-        // Element has already been saved, set the timer value from settings
-        const savedTimer = animationSettings[IsselectedElement.id].timer;
-        input11.value = savedTimer; // Set the input value to the saved timer
-        console.log("This element has already been saved. Timer set to " + savedTimer);
+        // Element has been saved, retrieve its settings
+        const savedSettings = animationSettings[IsselectedElement.id];
+        const savedTimer = savedSettings.timer;
+        const savedDirection = savedSettings.direction || null; // Default to null if direction isn't set
+    
+        // Set the input value based on the saved direction
+        if (savedDirection === "up") {
+            input11.value = savedTimer; // Up direction uses input11
+         
+        input22.value = "0.5"; // Default timer for "down"
+        input33.value = "0.5"; // Default timer for "right"
+        input44.value = "0.5"; // Default timer for "down"
+       
+
+        } else if (savedDirection === "down") {
+            input22.value = savedTimer; // Down direction uses input22
+            input11.value = "0.5"; // Default timer for "up"
+            input44.value = "0.5"; // Default timer for "down"
+            input33.value = "0.5"; // Default timer for "up"
+      
+     
+        input33.value = "0.5"; // Default timer for "right"
+        } else if (savedDirection === "right") {
+            input33.value = savedTimer; // Right direction uses input33
+            input11.value = "0.5"; // Default timer for "down"
+            input44.value = "0.5"; // Default timer for "up"
+        input22.value = "0.5"; // Default timer for "down"
+     
+        } 
+        
+        else if (savedDirection === "left") {
+            input44.value = savedTimer; // Right direction uses input33
+            input11.value = "0.5"; // Default timer for "down"
+            input33.value = "0.5"; // Default timer for "up"
+        input22.value = "0.5"; // Default timer for "down"
+     
+        }
+
+
+        else {
+            // Default behavior: apply savedTimer to all inputs if no direction is set
+            input11.value = savedTimer;
+            input22.value = savedTimer;
+            input33.value = savedTimer;
+            input44.value = savedTimer;
+        }
+    
+        // Highlight the direction if it exists
+        updiv.style.border = savedDirection === "up" ? '2px solid rgb(232, 211, 228)' : 'none';
+        downdiv.style.border = savedDirection === "down" ? '2px solid rgb(232, 211, 228)' : 'none';
+        rightdiv.style.border = savedDirection === "right" ? '2px solid rgb(232, 211, 228)' : 'none';
+        rightleft.style.border = savedDirection === "left" ? '2px solid rgb(232, 211, 228)' : 'none';
     }
+    
     
 }
 
@@ -68,26 +120,73 @@ function showResizeHandles(event) {
 
 
     if (!animationSettings[IsselectedElement.id]) {
-        // Element has not been saved yet, clear borders and set default value in input
-
-        
+        // Element has not been saved yet, clear borders and set default value in inputs
         updiv.style.border = 'none';
         rightleft.style.border = 'none';
         downdiv.style.border = 'none';
         rightdiv.style.border = 'none';
-        input11.value = "0.5"; // Set default timer value
-        console.log("This element hasn't been saved yet. Default settings applied.");
+    
+        input11.value = "0.5"; // Default timer for "up"
+        input22.value = "0.5"; // Default timer for "down"
+        input33.value = "0.5"; // Default timer for "right"
+        input44.value = "0.5"; // Default timer for "down"
+       
     } else {
-        updiv.style.border = '2px solid rgb(232, 211, 228)';
-        rightleft.style.border = 'none';
-        downdiv.style.border = 'none';
-        rightdiv.style.border = 'none';
+        // Element has been saved, retrieve its settings
+        const savedSettings = animationSettings[IsselectedElement.id];
+        const savedTimer = savedSettings.timer;
+        const savedDirection = savedSettings.direction || null; // Default to null if direction isn't set
+    
+        // Set the input value based on the saved direction
+        if (savedDirection === "up") {
+            input11.value = savedTimer; // Up direction uses input11
+         
+        input22.value = "0.5"; // Default timer for "down"
+        input33.value = "0.5"; // Default timer for "right"
+        input44.value = "0.5"; // Default timer for "down"
+       
+
+        } else if (savedDirection === "down") {
+            input22.value = savedTimer; // Down direction uses input22
+            input11.value = "0.5"; // Default timer for "up"
+            input44.value = "0.5"; // Default timer for "down"
+            input33.value = "0.5"; // Default timer for "up"
+      
+     
+        input33.value = "0.5"; // Default timer for "right"
+        } else if (savedDirection === "right") {
+            input33.value = savedTimer; // Right direction uses input33
+            input11.value = "0.5"; // Default timer for "down"
+            input44.value = "0.5"; // Default timer for "up"
+        input22.value = "0.5"; // Default timer for "down"
+     
+        } 
         
-        // Element has already been saved, set the timer value from settings
-        const savedTimer = animationSettings[IsselectedElement.id].timer;
-        input11.value = savedTimer; // Set the input value to the saved timer
-        console.log("This element has already been saved. Timer set to " + savedTimer);
+        else if (savedDirection === "left") {
+            input44.value = savedTimer; // Right direction uses input33
+            input11.value = "0.5"; // Default timer for "down"
+            input33.value = "0.5"; // Default timer for "up"
+        input22.value = "0.5"; // Default timer for "down"
+     
+        }
+
+
+        else {
+            // Default behavior: apply savedTimer to all inputs if no direction is set
+            input11.value = savedTimer;
+            input22.value = savedTimer;
+            input33.value = savedTimer;
+            input44.value = savedTimer;
+        }
+    
+        // Highlight the direction if it exists
+        updiv.style.border = savedDirection === "up" ? '2px solid rgb(232, 211, 228)' : 'none';
+        downdiv.style.border = savedDirection === "down" ? '2px solid rgb(232, 211, 228)' : 'none';
+        rightdiv.style.border = savedDirection === "right" ? '2px solid rgb(232, 211, 228)' : 'none';
+        rightleft.style.border = savedDirection === "left" ? '2px solid rgb(232, 211, 228)' : 'none';
     }
+    
+    
     
 }
 
@@ -126,14 +225,14 @@ let popupprotect = document.getElementById("popup")
 // Hide resize handles when clicking anywhere else in the document
 // Hide resize handles when clicking anywhere else in the document
 document.addEventListener('click', function(e) {
-    if (thebackground.contains(e.target) && (!popupprotect.contains(e.target) && (e.target.tagName === 'IMG' || e.target.tagName === 'DIV' || e.target.tagName === 'INPUT'))) {
+    if (thebackground.contains(e.target) &&(!colorPicker1.contains(e.target) && (!popupprotect.contains(e.target) && (e.target.tagName === 'IMG' || e.target.tagName === 'DIV' || e.target.tagName === 'INPUT')))) {
         hideResizeHandles(); // Hide the text box resize handles
         hidedivresizehandle(); // Hide the box resize handles
         hideAllHandles(activeElement);
 
 
         IsselectedElement = null; // Clear the selected element
-        console.log("No element selected");
+        console.log("No element selected jj");
         
     }
 });

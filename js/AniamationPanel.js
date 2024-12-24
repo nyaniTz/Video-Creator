@@ -426,7 +426,7 @@ rightleft.appendChild(input4)
 document.addEventListener('click',function(e){
 
  
-e.preventDefault()
+
 animationpanel.style.transition='transform 0.6s ease-in-out'
 
 let previewbutton=document.getElementById("previewbutton")
@@ -449,7 +449,7 @@ if(!AnimationPanelMain.contains(e.target) &&( !animediv.contains(e.target) &&(!A
 
 
 
-
+//up
 
 let input11=document.getElementById("input1")
 
@@ -485,6 +485,7 @@ updiv.addEventListener('click', function () {
         animationSettings[IsselectedElement.id] = {
             element: IsselectedElement,
             timer: transitionDuration,
+            direction: "up", // Add direction here
         };
 
         
@@ -529,135 +530,133 @@ input11.addEventListener('input', function () {
 //down
 let input22 = document.getElementById("input2");
 
+// Handle the "Down" button click
 downdiv.addEventListener("click", function () {
-    downdiv.style.border='2px solid rgb(232, 211, 228)'
-
-    updiv.style.border='none'
-   
-    rightleft.style.border='none'
-    rightdiv.style.border='none'
-
+    downdiv.style.border = '2px solid rgb(232, 211, 228)';
+    updiv.style.border = 'none';
+    rightleft.style.border = 'none';
+    rightdiv.style.border = 'none';
 
     if (IsselectedElement) {
         // Get the value from input22 to determine the transition duration
-        let transitionDuration = parseFloat(input22.value); // Get the value as a float
-        transitionDuration = isNaN(transitionDuration) ? 0.5 : transitionDuration; // Default to 0.5s if not valid
+        let transitionDuration = parseFloat(input22.value);
+        transitionDuration = isNaN(transitionDuration) ? 0.5 : transitionDuration;
+
+        // Save the timer value to the animationSettings object for the selected element
+        animationSettings[IsselectedElement.id] = {
+            element: IsselectedElement,
+            timer: transitionDuration,
+            direction: "down", // Add direction here
+        };
 
         // Reset the element's transform and transition before applying the animation
-        IsselectedElement.style.transition = "none"; // Disable transition to reset
+        IsselectedElement.style.transition = "none";
         IsselectedElement.style.transform = "translateY(-50px)"; // Set to above position
-    
+
         // Trigger reflow to ensure the browser applies the reset styles
         void IsselectedElement.offsetHeight;
-    
+
         IsselectedElement.style.opacity = '0.4';
 
-        // Apply the downward animation to the original position with dynamic transition duration
-        IsselectedElement.style.transition = `transform ${transitionDuration}s ease`; // Set dynamic transition time
-        IsselectedElement.style.transform = "translateY(0)"; // Move to original position
-        
+        // Apply the downward animation to the original position
+        IsselectedElement.style.transition = `transform ${transitionDuration}s ease`;
+        IsselectedElement.style.transform = "translateY(0)";
+
         setTimeout(() => {
             IsselectedElement.style.opacity = '1';
-            IsselectedElement.style.transition = `opacity ${transitionDuration}s ease, visibility ${transitionDuration}s ease`; // Set dynamic opacity transition time
-        }, transitionDuration * 1000); // Convert to milliseconds
+            IsselectedElement.style.transition = `opacity ${transitionDuration}s ease, visibility ${transitionDuration}s ease`;
+        }, transitionDuration * 1000);
     } else {
         console.log("No element selected for animation.");
     }
 });
 
+// Update timer value dynamically when an element is selected
+input22.addEventListener('input', function () {
+    if (IsselectedElement) {
+        // Save the new timer value for the selected element
+        const newTimer = parseFloat(input22.value) || 0.5;
+        animationSettings[IsselectedElement.id].timer = newTimer;
+    }
+});
+
+// Handle "mouseenter" for down animation
 downdiv.addEventListener("mouseenter", function () {
     if (IsselectedElement) {
+        let transitionDuration = parseFloat(input22.value);
+        transitionDuration = isNaN(transitionDuration) ? 0.5 : transitionDuration;
 
+        IsselectedElement.style.transition = "none";
+        IsselectedElement.style.transform = "translateY(-50px)";
 
-        // Get the value from input22 to determine the transition duration
-        let transitionDuration = parseFloat(input22.value); // Get the value as a float
-        transitionDuration = isNaN(transitionDuration) ? 0.5 : transitionDuration; // Default to 0.5s if not valid
-
-        // Reset the element's transform and transition before applying the animation
-        IsselectedElement.style.transition = "none"; // Disable transition to reset
-        IsselectedElement.style.transform = "translateY(-50px)"; // Set to above position
-
-        // Trigger reflow to ensure the browser applies the reset styles
         void IsselectedElement.offsetHeight;
 
         IsselectedElement.style.opacity = '0.4';
-
-        // Apply the downward animation to the original position with dynamic transition duration
-        IsselectedElement.style.transition = `transform ${transitionDuration}s ease`; // Set dynamic transition time
-        IsselectedElement.style.transform = "translateY(0)"; // Move to original position
+        IsselectedElement.style.transition = `transform ${transitionDuration}s ease`;
+        IsselectedElement.style.transform = "translateY(0)";
 
         setTimeout(() => {
             IsselectedElement.style.opacity = '1';
-            IsselectedElement.style.transition = `opacity ${transitionDuration}s ease, visibility ${transitionDuration}s ease`; // Set dynamic opacity transition time
-        }, transitionDuration * 1000); // Convert to milliseconds
+            IsselectedElement.style.transition = `opacity ${transitionDuration}s ease, visibility ${transitionDuration}s ease`;
+        }, transitionDuration * 1000);
+    }
+});
+
+// Handle "mouseleave" for down animation
+downdiv.addEventListener("mouseleave", function () {
+    if (IsselectedElement) {
+        IsselectedElement.style.transition = "transform 0.5s ease";
+        IsselectedElement.style.transform = "translateY(0)";
     }
 });
 
 
-downdiv.addEventListener("mousemove", function (event) {
-    // Do nothing to prevent repeated actions while inside the div
-    event.stopPropagation();
-});
 
 
-
-downdiv.addEventListener("mouseleave", function () {
-    if (IsselectedElement) {
-  
-      
-      
-        IsselectedElement.style.transition = "transform 0.5s ease"; // Re-enable transition
-        IsselectedElement.style.transform = "translateY(0)"; // Move to original position
-        
-      
-
-    } 
-    
-});
-
-
-
-
-
-//TransitionX
+// TransitionX
 let input33 = document.getElementById("input3");
 
 rightdiv.addEventListener("click", function () {
+    // Highlight the "right" button
+    rightdiv.style.border = '2px solid rgb(232, 211, 228)';
+    updiv.style.border = 'none';
+    downdiv.style.border = 'none';
+    rightleft.style.border = 'none';
 
-    rightdiv.style.border='2px solid rgb(232, 211, 228)'
-
-    updiv.style.border='none'
-    downdiv.style.border='none'
-    rightleft.style.border='none'
-
-
-    
     if (IsselectedElement) {
         // Get the value from input33 to determine the transition duration
-        let transitionDuration = parseFloat(input33.value); // Get the value as a float
-        transitionDuration = isNaN(transitionDuration) ? 0.5 : transitionDuration; // Default to 0.5s if not valid
+        let transitionDuration = parseFloat(input33.value);
+        transitionDuration = isNaN(transitionDuration) ? 0.5 : transitionDuration; // Default to 0.5s if invalid
+
+        // Save settings to animationSettings for the selected element
+        animationSettings[IsselectedElement.id] = {
+            element: IsselectedElement,
+            timer: transitionDuration,
+            direction: 'right', // Use correct property name
+        };
 
         // Reset the element's transform and transition before applying the animation
-        IsselectedElement.style.transition = "none"; // Disable transition to reset
-        IsselectedElement.style.transform = "translateX(-50px)"; // Set to left position
-    
+        IsselectedElement.style.transition = "none"; // Disable transition temporarily
+        IsselectedElement.style.transform = "translateX(-50px)"; // Move to left position
+
         // Trigger reflow to ensure the browser applies the reset styles
         void IsselectedElement.offsetHeight;
-    
+
         IsselectedElement.style.opacity = '0.4';
 
         // Apply the rightward animation to the original position
-        IsselectedElement.style.transition = `transform ${transitionDuration}s ease`; // Set dynamic transition time
-        IsselectedElement.style.transform = "translateX(0)"; // Move to original position
-        
+        IsselectedElement.style.transition = `transform ${transitionDuration}s ease`; // Apply dynamic transition
+        IsselectedElement.style.transform = "translateX(0)"; // Move back to original position
+
         setTimeout(() => {
             IsselectedElement.style.opacity = '1';
-            IsselectedElement.style.transition = `opacity ${transitionDuration}s ease, visibility ${transitionDuration}s ease`; // Set dynamic opacity transition time
+            IsselectedElement.style.transition = `opacity ${transitionDuration}s ease, visibility ${transitionDuration}s ease`; // Dynamic opacity transition
         }, transitionDuration * 1000); // Convert to milliseconds
     } else {
         console.log("No element selected for animation.");
     }
 });
+
 
 rightdiv.addEventListener("mouseenter", function () {
     if (IsselectedElement) {
@@ -721,6 +720,12 @@ rightleft.addEventListener("click", function () {
         let transitionDuration = parseFloat(input44.value); // Get the value as a float
         transitionDuration = isNaN(transitionDuration) ? 0.5 : transitionDuration; // Default to 0.5s if not valid
 
+
+        animationSettings[IsselectedElement.id] = {
+            element: IsselectedElement,
+            timer: transitionDuration,
+            direction: 'left', // Use correct property name
+        };
         // Reset the element's transform and transition before applying the animation
         IsselectedElement.style.transition = "none"; // Disable transition to reset
         IsselectedElement.style.transform = "translateX(50px)"; // Set to right position
